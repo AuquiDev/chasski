@@ -1,0 +1,113 @@
+name: chasski
+description: "A new Flutter project."
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.6
+  pocketbase: ^0.18.1
+  provider: ^6.1.2
+  shared_preferences: ^2.2.2
+  cached_network_image: ^3.3.1
+  connectivity_plus: ^5.0.2 #Gestionar conectividad de internet
+  http: ^1.2.0
+  sqflite: ^2.3.2 #para SQL LITE Base de datos local, trabaja con path provider
+  path: ^1.8.3 #Para SQL LITE Nos sirve para unir elementos. trabaja con SQL lite 
+  path_provider: ^2.1.2 #para SQL LITE encontrar ubicaciones de uso común en el sistema de archivos
+  pdf: ^3.10.8 #exportar pdf
+  excel: ^4.0.2  #exportar excel
+  open_filex: ^4.3.4  #abrir archivo y requiere de path provider
+  flutter_tts: ^3.8.5 #de text a voz 
+  speech_to_text: ^6.5.1
+  image_picker: ^1.0.7
+  qr_flutter: ^4.1.0
+  flutter_barcode_scanner: ^2.0.0
+  widget_circular_animator: ^1.0.0 #ANimacion QR Datils Personal
+  fade_out_particle: ^1.2.1 #Animacion Qr LEctor 
+  simple_ripple_animation: ^0.0.9 #Animacion Qr Insta Qr Scanner
+  quickalert: ^1.0.2 #ALerta SHow Dialog 
+  delayed_display: ^2.0.0 #EFECTO opacity al iniciar la pantalla
+  # draggable_home: ^1.0.5 #Efecto Expandible de el appber
+  syncfusion_flutter_charts: ^24.2.9  #Graficos DASHBORAD  
+  vibration: ^1.8.4 #vibrar al snacear un codgio qr
+  audioplayers: ^5.2.1 #reproducir tonpo al scanear QR
+  elegant_notification: ^2.1.2
+  numeric_keyboard: ^1.1.0
+  flutter_expanded_tile: ^0.3.7
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: ^0.13.1
+ 
+flutter_launcher_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/img/icon_app.png"
+  flutter_lints: ^2.0.0
+
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  assets:
+    - assets/img/
+    - assets/
+    - assets/song/
+  fonts:
+   - family: Poppins
+     fonts:
+        - asset: assets/fonts/Poppins-Black.ttf
+        - asset: assets/fonts/Poppins-BlackItalic.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
+        - asset: assets/fonts/Poppins-BoldItalic.ttf
+        - asset: assets/fonts/Poppins-ExtraBold.ttf
+        - asset: assets/fonts/Poppins-ExtraBoldItalic.ttf
+        - asset: assets/fonts/Poppins-ExtraLight.ttf
+        - asset: assets/fonts/Poppins-ExtraLightItalic.ttf
+        - asset: assets/fonts/Poppins-Italic.ttf
+        - asset: assets/fonts/Poppins-Light.ttf
+        - asset: assets/fonts/Poppins-LightItalic.ttf
+        - asset: assets/fonts/Poppins-Medium.ttf
+        - asset: assets/fonts/Poppins-MediumItalic.ttf
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+        - asset: assets/fonts/Poppins-SemiBoldItalic.ttf
+        - asset: assets/fonts/Poppins-Thin.ttf
+        - asset: assets/fonts/Poppins-ThinItalic.ttf
