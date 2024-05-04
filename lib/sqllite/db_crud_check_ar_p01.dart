@@ -18,7 +18,7 @@ class CrudDBCheckPointsAR01 {
         'collectionName': e.collectionName,
         'created': e.created?.toIso8601String(),
         'updated': e.updated?.toIso8601String(),
-        'id_corredor': e.idCorredor,
+        'id_corredor': e.idCorredor, 
         'id_check_points': e.idCheckPoints,
         'fecha': e.fecha.toIso8601String(),
         'estado': e.estado ? 1 : 0,
