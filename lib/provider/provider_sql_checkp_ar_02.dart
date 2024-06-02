@@ -2,20 +2,20 @@
 
 import 'package:chasski/models/model_check_points.dart';
 import 'package:chasski/offline/t_comparativa_check_points.dart';
-import 'package:chasski/provider/provider_t_check_p0.dart';
-import 'package:chasski/sqllite/db_crud_check_ar_p00.dart';
+import 'package:chasski/provider/provider_t_checkp_ar_02.dart';
+import 'package:chasski/sqllite/db_crud_check_ar_p02.dart';
 import 'package:flutter/material.dart';
 import 'package:chasski/sqllite/db_create_local_storage.dart';
 import 'package:chasski/utils/custom_text.dart';
 import 'package:provider/provider.dart';
 
-class DBCheckP00AppProvider with ChangeNotifier {
+class DBCheckPointsAppProviderAr02 with ChangeNotifier {
   List<TCheckPointsModel> listsql = []; //LISTA para alamcenar los datos
 
   List<TCheckPointsModel> get data => listsql;
 
   //Intancia del Crud de asistencai DB local.
-  CrudDBCheckPointsAR00 crudDb = CrudDBCheckPointsAR00();
+  CrudDBCheckPointsAR02 crudDb = CrudDBCheckPointsAR02();
 
 
   Future<void> initDatabase() async {
@@ -236,7 +236,7 @@ class DBCheckP00AppProvider with ChangeNotifier {
     incidenciasSinc = [];
 
     final dataProvider =
-        Provider.of<TCheckP00Provider>(context, listen: false);
+        Provider.of<TCheckP02Provider>(context, listen: false);
     List<TCheckPointsModel> listaApi = dataProvider.listAsistencia;
     offlineSync = true;
     notifyListeners();

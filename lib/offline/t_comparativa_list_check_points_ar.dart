@@ -20,9 +20,9 @@ class ContentCargaDatosListCheckpoints extends StatelessWidget {
     required this.column2,
   });
 
-  final List<TListCheckPoitns_ARModels> listsql;
+  final List<TListChekPoitnsModel> listsql;
   final int index;
-  final TListCheckPoitns_ARModels e;
+  final TListChekPoitnsModel e;
   final String text;
   final String comlun1;
   final String column2;

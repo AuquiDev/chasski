@@ -149,8 +149,8 @@ class ContentCargaDatosCheckpoints extends StatelessWidget {
                   fontSize: 10,
                   fontWeight: FontWeight.w800,
                 ))),
-                TableCell(child: _text(listsql[index].estado)),
-                TableCell(child: _text(e.estado)),
+                TableCell(child: _text(listsql[index].estado.toString())),
+                TableCell(child: _text(e.estado.toString())),
               ],
             ),
            

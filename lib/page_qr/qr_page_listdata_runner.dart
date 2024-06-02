@@ -1,5 +1,5 @@
 import 'package:chasski/models/model_runners_ar.dart';
-import 'package:chasski/provider/provider_sql_check_p0.dart';
+import 'package:chasski/provider/provider_sql_checkp_ar_00.dart';
 import 'package:chasski/provider/provider_sql_empelado.dart';
 import 'package:chasski/provider/provider_sql_runners_ar.dart';
 import 'package:chasski/provider/provider_t_runners_ar.dart';
@@ -27,7 +27,7 @@ class _QrListaRunnersState extends State<QrListaRunners> {
   void initState() {
     Provider.of<DBRunnersAppProvider>(context, listen: false).initDatabase();
 
-    Provider.of<DBCheckP00AppProvider>(context, listen: false).initDatabase();
+    Provider.of<DBCheckPointsAppProviderAr00>(context, listen: false).initDatabase();
     Provider.of<DBEMpleadoProvider>(context, listen: false).initDatabase();
     // Retrasa la ejecución de mostrarDialogoSeleccion después de que initState haya completado
     Future.delayed(Duration.zero, () {

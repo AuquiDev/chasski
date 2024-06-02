@@ -12,14 +12,14 @@ class TListCheckPoitns_AR {
     return records;
   }
 
-  static  postAsistenciaPk(TListCheckPoitns_ARModels data) async {
+  static  postAsistenciaPk(TListChekPoitnsModel data) async {
     final record =
         await pb.collection('ar_check_points').create(body: data.toJson());
 
     return record;
   }
 
-  static  putAsitneciaPk({String? id, TListCheckPoitns_ARModels? data}) async {
+  static  putAsitneciaPk({String? id, TListChekPoitnsModel? data}) async {
     final record =
         await pb.collection('ar_check_points').update(id!, body: data!.toJson());
     return record;

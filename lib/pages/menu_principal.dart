@@ -96,7 +96,7 @@ class ListaOpcionesphone extends StatelessWidget {
             ),
         itemBuilder: (context, index) {
           final listaRoutes = routes[index];
-          if (index == 4) {
+          if (index == 20) {
             return Column(
               children: [
                   
@@ -126,7 +126,7 @@ class ListaOpcionesphone extends StatelessWidget {
                 CardMenuPrincipal(listaRoutes: listaRoutes),
               ],
             );
-          } else if (index == 7) {
+          } else if (index == 19) {
             return Column(
               children: [
                 const ListTile(

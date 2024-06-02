@@ -22,7 +22,7 @@ class CrudDBCheckPointsAR01 {
         'id_check_points': e.idCheckPoints,
         'fecha': e.fecha.toIso8601String(),
         'estado': e.estado ? 1 : 0,
-        'nombre': e.nombre,
+        'nombre': e.nombre, 
         'dorsal': e.dorsal,
       },
       conflictAlgorithm: ConflictAlgorithm.replace,

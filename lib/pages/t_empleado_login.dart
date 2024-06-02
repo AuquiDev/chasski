@@ -3,7 +3,7 @@
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:chasski/provider/provider_sql_check_p0.dart';
+import 'package:chasski/provider/provider_sql_checkp_ar_00.dart';
 import 'package:chasski/provider/provider_sql_empelado.dart';
 import 'package:chasski/provider/provider_sql_runners_ar.dart';
 import 'package:delayed_display/delayed_display.dart';
@@ -47,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
      Provider.of<DBRunnersAppProvider>(context, listen: false).initDatabase();
-              Provider.of<DBCheckP00AppProvider>(context, listen:  false).initDatabase();
+              Provider.of<DBCheckPointsAppProviderAr00>(context, listen:  false).initDatabase();
               Provider.of<DBEMpleadoProvider>(context, listen:  false).initDatabase();
     cargarUsuario();
     // Al inicializar el widget, obtenemos el estado de inicio de sesión previo

@@ -149,6 +149,214 @@ class DatabaseTablesDB {
         nombre TEXT,
         dorsal TEXT
       );
+    ''',
+    '''
+      CREATE TABLE check_points02 (
+        idsql INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT,
+        collectionId TEXT,
+        collectionName TEXT,
+        created TEXT,
+        updated TEXT,
+        id_corredor TEXT,
+        id_check_points TEXT,
+        fecha TEXT,
+        estado INTEGER,
+        nombre TEXT,
+        dorsal TEXT
+      );
+    ''',
+    '''
+      CREATE TABLE check_points03 (
+        idsql INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT,
+        collectionId TEXT,
+        collectionName TEXT,
+        created TEXT,
+        updated TEXT,
+        id_corredor TEXT,
+        id_check_points TEXT,
+        fecha TEXT,
+        estado INTEGER,
+        nombre TEXT,
+        dorsal TEXT
+      );
+    ''',
+    '''
+      CREATE TABLE check_points04 (
+        idsql INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT,
+        collectionId TEXT,
+        collectionName TEXT,
+        created TEXT,
+        updated TEXT,
+        id_corredor TEXT,
+        id_check_points TEXT,
+        fecha TEXT,
+        estado INTEGER,
+        nombre TEXT,
+        dorsal TEXT
+      );
+    ''', 
+    '''
+      CREATE TABLE check_points05 (
+        idsql INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT,
+        collectionId TEXT,
+        collectionName TEXT,
+        created TEXT,
+        updated TEXT,
+        id_corredor TEXT,
+        id_check_points TEXT,
+        fecha TEXT,
+        estado INTEGER,
+        nombre TEXT,
+        dorsal TEXT
+      );
+    ''', 
+    '''
+      CREATE TABLE check_points06 (
+        idsql INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT,
+        collectionId TEXT,
+        collectionName TEXT,
+        created TEXT,
+        updated TEXT,
+        id_corredor TEXT,
+        id_check_points TEXT,
+        fecha TEXT,
+        estado INTEGER,
+        nombre TEXT,
+        dorsal TEXT
+      );
+    ''',
+    '''
+      CREATE TABLE check_points07 (
+        idsql INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT,
+        collectionId TEXT,
+        collectionName TEXT,
+        created TEXT,
+        updated TEXT,
+        id_corredor TEXT,
+        id_check_points TEXT,
+        fecha TEXT,
+        estado INTEGER,
+        nombre TEXT,
+        dorsal TEXT
+      );
+    ''',
+    '''
+      CREATE TABLE check_points08 (
+        idsql INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT,
+        collectionId TEXT,
+        collectionName TEXT,
+        created TEXT,
+        updated TEXT,
+        id_corredor TEXT,
+        id_check_points TEXT,
+        fecha TEXT,
+        estado INTEGER,
+        nombre TEXT,
+        dorsal TEXT
+      );
+    ''',
+    '''
+      CREATE TABLE check_points09 (
+        idsql INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT,
+        collectionId TEXT,
+        collectionName TEXT,
+        created TEXT,
+        updated TEXT,
+        id_corredor TEXT,
+        id_check_points TEXT,
+        fecha TEXT,
+        estado INTEGER,
+        nombre TEXT,
+        dorsal TEXT
+      );
+    ''',
+    '''
+      CREATE TABLE check_points010 (
+        idsql INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT,
+        collectionId TEXT,
+        collectionName TEXT,
+        created TEXT,
+        updated TEXT,
+        id_corredor TEXT,
+        id_check_points TEXT,
+        fecha TEXT,
+        estado INTEGER,
+        nombre TEXT,
+        dorsal TEXT
+      );
+    ''',
+    '''
+      CREATE TABLE check_points011 (
+        idsql INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT,
+        collectionId TEXT,
+        collectionName TEXT,
+        created TEXT,
+        updated TEXT,
+        id_corredor TEXT,
+        id_check_points TEXT,
+        fecha TEXT,
+        estado INTEGER,
+        nombre TEXT,
+        dorsal TEXT
+      );
+    ''',
+    '''
+      CREATE TABLE check_points012 (
+        idsql INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT,
+        collectionId TEXT,
+        collectionName TEXT,
+        created TEXT,
+        updated TEXT,
+        id_corredor TEXT,
+        id_check_points TEXT,
+        fecha TEXT,
+        estado INTEGER,
+        nombre TEXT,
+        dorsal TEXT
+      );
+    ''',
+    '''
+      CREATE TABLE check_points013 (
+        idsql INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT,
+        collectionId TEXT,
+        collectionName TEXT,
+        created TEXT,
+        updated TEXT,
+        id_corredor TEXT,
+        id_check_points TEXT,
+        fecha TEXT,
+        estado INTEGER,
+        nombre TEXT,
+        dorsal TEXT
+      );
+    ''',
+    '''
+      CREATE TABLE check_points0Meta (
+        idsql INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT,
+        collectionId TEXT,
+        collectionName TEXT,
+        created TEXT,
+        updated TEXT,
+        id_corredor TEXT,
+        id_check_points TEXT,
+        fecha TEXT,
+        estado INTEGER,
+        nombre TEXT,
+        dorsal TEXT
+      );
     '''
     ];
 

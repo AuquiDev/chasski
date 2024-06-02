@@ -3,9 +3,11 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:chasski/models/model_check_points.dart';
 import 'package:chasski/models/model_runners_ar.dart';
-import 'package:chasski/provider/provider_sql_check_p0.dart';
+import 'package:chasski/provider/provider_sql_checkp_ar_03.dart';
+// import 'package:chasski/provider/provider_sql_checkp_ar_02.dart';
 import 'package:chasski/provider/provider_sql_list_check_points_ar.dart';
-import 'package:chasski/provider/provider_t_check_p0.dart';
+import 'package:chasski/provider/provider_t_checkp_ar_03.dart';
+// import 'package:chasski/provider/provider_t_checkp_ar_02.dart';
 import 'package:chasski/widgets/close_page_buton.dart';
 import 'package:fade_out_particle/fade_out_particle.dart';
 import 'package:flutter/material.dart';
@@ -24,22 +26,22 @@ import 'package:chasski/widgets/state_signal_small.dart';
 import 'package:delayed_display/delayed_display.dart';
 
 //PAGINA PARA SCANEAR QR
-class QrPageAR00ChP extends StatefulWidget {
-  const QrPageAR00ChP(
+class QrPageAR03ChP extends StatefulWidget {
+  const QrPageAR03ChP(
       {super.key, required this.idCheckPoints, required this.name});
   final String idCheckPoints;
   final String name;
 
   @override
-  State<QrPageAR00ChP> createState() => _QrPageAR00ChPState();
+  State<QrPageAR03ChP> createState() => _QrPageAR03ChPState();
 }
 
-class _QrPageAR00ChPState extends State<QrPageAR00ChP> {
+class _QrPageAR03ChPState extends State<QrPageAR03ChP> {
   FlutterTts flutterTts = FlutterTts();
   @override
   void initState() {
     Provider.of<DBRunnersAppProvider>(context, listen: false).initDatabase();
-    Provider.of<DBCheckP00AppProvider>(context, listen: false).initDatabase();
+    Provider.of<DBCheckPointsAppProviderAr03>(context, listen: false).initDatabase();
     Provider.of<DBEMpleadoProvider>(context, listen: false).initDatabase();
      Provider.of<DBTListCheckPoitns_ARProvider>(context, listen: false).initDatabase();
     // Retrasa la ejecución de mostrarDialogoSeleccion después de que initState haya completado
@@ -289,8 +291,8 @@ class _QrScannerAR0State extends State<QrScannerAR0> {
           'Dorsal Numero:${isPerson.dorsal}.   \n: ${isPerson.nombre + isPerson.apellidos}.',
         );
         //SIQREXISTE guardamos en la Base de datos
-        final listSql =   Provider.of<DBCheckP00AppProvider>(context, listen: false).listsql;
-        final listServer = Provider.of<TCheckP00Provider>(context, listen: false).listAsistencia;
+        final listSql =   Provider.of<DBCheckPointsAppProviderAr03>(context, listen: false).listsql;
+        final listServer = Provider.of<TCheckP03Provider>(context, listen: false).listAsistencia;
         final isOffline =  Provider.of<UsuarioProvider>(context, listen: false).isOffline;
         // Verificamos si el usuario ya tiene una asistencia registrada para hoy
         TCheckPointsModel? asistenciaPersonal;
@@ -382,7 +384,7 @@ class _QrScannerAR0State extends State<QrScannerAR0> {
        nombre: isPerson.nombre,
       dorsal: isPerson.dorsal,
     );
-    await context.read<DBCheckP00AppProvider>().insertData(offlineData, true);
+    await context.read<DBCheckPointsAppProviderAr03>().insertData(offlineData, true);
   }
 
   Future<void> editarffline() async {
@@ -400,13 +402,13 @@ class _QrScannerAR0State extends State<QrScannerAR0> {
     );
     print('EDIT DATA : offlinee ${personScaner.id}');
     await context
-        .read<DBCheckP00AppProvider>()
+        .read<DBCheckPointsAppProviderAr03>()
         .updateData(offlineData, personScaner.idsql!, true);
   }
 
 //SERVER
   Future<void> editarEntrada() async {
-    await context.read<TCheckP00Provider>().updateTAsistenciaProvider(
+    await context.read<TCheckP03Provider>().updateTAsistenciaProvider(
           id: personScaner.id,
           idCorredor: isPerson.id!,
           idCheckPoints: widget.idCheckPoints,
@@ -419,7 +421,7 @@ class _QrScannerAR0State extends State<QrScannerAR0> {
   }
 
   Future<void> guardarEntrada() async {
-    await context.read<TCheckP00Provider>().postTAsistenciaProvider(
+    await context.read<TCheckP03Provider>().postTAsistenciaProvider(
           id: '',
           idCorredor: isPerson.id!,
           idCheckPoints: widget.idCheckPoints,

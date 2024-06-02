@@ -1,12 +1,11 @@
 // import 'package:chaskis/models/model_runners_ar.dart';
 import 'package:chasski/models/model_list_check_points_ar.dart';
-import 'package:chasski/page_chek_points/page_0_ar_chp_partida.dart';
 import 'package:chasski/page_qr/check_points_list_routes.dart';
-import 'package:chasski/provider/provider_sql_check_p0.dart';
+import 'package:chasski/provider/provider_sql_checkp_ar_00.dart';
 import 'package:chasski/provider/provider_sql_empelado.dart';
 import 'package:chasski/provider/provider_sql_list_check_points_ar.dart';
 import 'package:chasski/provider/provider_sql_runners_ar.dart';
-import 'package:chasski/provider/provider_t_list_check_ar.dart';
+import 'package:chasski/provider/provider_t_list_check_points.dart'; 
 import 'package:chasski/utils/format_fecha.dart';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
@@ -16,13 +15,13 @@ import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:flutter_expanded_tile/flutter_expanded_tile.dart';
 
-class CheckPotinsList extends StatefulWidget {
-  const CheckPotinsList({super.key});
+class CheckPotinsListPage extends StatefulWidget {
+  const CheckPotinsListPage({super.key});
   @override
-  State<CheckPotinsList> createState() => _CheckPotinsListState();
+  State<CheckPotinsListPage> createState() => _CheckPotinsListPageState();
 }
 
-class _CheckPotinsListState extends State<CheckPotinsList> {
+class _CheckPotinsListPageState extends State<CheckPotinsListPage> {
   String idtrabajo = '';
   late ExpandedTileController _controller;
 
@@ -31,7 +30,8 @@ class _CheckPotinsListState extends State<CheckPotinsList> {
     //PONER TODAS LA BD-SQL INCIALIZADAS
     Provider.of<DBRunnersAppProvider>(context, listen: false).initDatabase();
 
-    Provider.of<DBCheckP00AppProvider>(context, listen: false).initDatabase();
+    Provider.of<DBCheckPointsAppProviderAr00>(context, listen: false)
+        .initDatabase();
     Provider.of<DBEMpleadoProvider>(context, listen: false).initDatabase();
     Provider.of<DBTListCheckPoitns_ARProvider>(context, listen: false)
         .initDatabase();
@@ -69,10 +69,10 @@ class _CheckPotinsListState extends State<CheckPotinsList> {
     bool isffline = dataCache.isOffline;
 
     final listaCheckPServerList =
-        Provider.of<TListCheckPoitns_ARProvider>(context).listAsistencia;
+        Provider.of<TListCheckPoitnsProvider>(context).listAsistencia;
     final listaCheckPSQlList =
         Provider.of<DBTListCheckPoitns_ARProvider>(context).listsql;
-    List<TListCheckPoitns_ARModels> checkPList =
+    List<TListChekPoitnsModel> checkPList =
         isffline ? listaCheckPSQlList : listaCheckPServerList;
     //LISTA GRUPOS ALMACÉ
     checkPList.sort((a, b) => a.orden.compareTo(b.orden));
@@ -161,7 +161,7 @@ class _CheckPotinsListState extends State<CheckPotinsList> {
                                                         color: Colors.blue,
                                                         child: TextButton.icon(
                                                             onPressed: () {
-                                                              navigateToPage(
+                                                              navigateToPageCheckPoint(
                                                                   e, context);
                                                             },
                                                             icon: Icon(
@@ -171,7 +171,7 @@ class _CheckPotinsListState extends State<CheckPotinsList> {
                                                                   Colors.white,
                                                             ),
                                                             label: H2Text(
-                                                              text: 'comenzar',
+                                                              text: 'GO',
                                                               fontSize: 12,
                                                               color:
                                                                   Colors.white,
@@ -192,7 +192,24 @@ class _CheckPotinsListState extends State<CheckPotinsList> {
                                                                   Colors.white,
                                                             ),
                                                             label: H2Text(
-                                                              text: 'Exportar',
+                                                              text: 'PDF',
+                                                              fontSize: 12,
+                                                              color:
+                                                                  Colors.white,
+                                                            ))),
+                                                       Card(
+                                                        color: Colors.red,
+                                                        child: TextButton.icon(
+                                                            onPressed: () {
+                                                              navigateToPageCheckPointOflline(e, context);
+                                                            },
+                                                            icon: Icon(
+                                                              Icons.sync_outlined,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                            label: H2Text(
+                                                              text: 'Sync',
                                                               fontSize: 12,
                                                               color:
                                                                   Colors.white,
@@ -221,7 +238,7 @@ class _CheckPotinsListState extends State<CheckPotinsList> {
         ));
   }
 
-  TableRow contentTable(TListCheckPoitns_ARModels e) {
+  TableRow contentTable(TListChekPoitnsModel e) {
     return TableRow(
       children: [
         H2Text(

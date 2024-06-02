@@ -3,7 +3,7 @@
 
 import 'package:chasski/models/model_list_check_points_ar.dart';
 import 'package:chasski/provider/provider_sql_list_check_points_ar.dart';
-import 'package:chasski/provider/provider_t_list_check_ar.dart';
+import 'package:chasski/provider/provider_t_list_check_points.dart';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -68,13 +68,13 @@ class _DBListCheckPointsArPageState extends State<DBListCheckPointsArPage> {
     // bool isavingProvider = isOffline ? isSavinSQL : isSavingSerer;
 
     final dbProducto = Provider.of<DBTListCheckPoitns_ARProvider>(context);
-    List<TListCheckPoitns_ARModels> listaSQl = dbProducto.listsql
+    List<TListChekPoitnsModel> listaSQl = dbProducto.listsql
       ..sort(
         (a, b) => a.idsql!.compareTo(b.idsql!),
       );
     bool issavingCarga = dbProducto.offlineSaving;
     bool isdeletCarga = dbProducto.isSyncing;
-    final dataProvider = Provider.of<TListCheckPoitns_ARProvider>(context);
+    final dataProvider = Provider.of<TListCheckPoitnsProvider>(context);
     final listaDatos = dataProvider.listAsistencia;
 
     // final cacheProvider = Provider.of<UsuarioProvider>(context);
@@ -284,7 +284,7 @@ class CardAsistencia extends StatelessWidget {
     required this.e,
   });
 
-  final TListCheckPoitns_ARModels e;
+  final TListChekPoitnsModel e;
 
   @override
   Widget build(BuildContext context) {
@@ -456,7 +456,7 @@ class LengtRegistros extends StatelessWidget {
     required this.listaSQl,
   });
 
-  final List<TListCheckPoitns_ARModels> listaSQl;
+  final List<TListChekPoitnsModel> listaSQl;
 
   @override
   Widget build(BuildContext context) {

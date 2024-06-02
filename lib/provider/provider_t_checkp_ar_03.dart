@@ -2,15 +2,18 @@
 
 
 import 'package:chasski/models/model_check_points.dart';
-import 'package:chasski/poketbase/t_check_p_ar0.dart';
+import 'package:chasski/poketbase/t_check_p_arp03.dart';
+// import 'package:chasski/poketbase/t_check_p_arp02.dart';
+// import 'package:chasski/poketbase/t_check_p_ar01.dart';
+// import 'package:chasski/poketbase/t_check_p_ar0.dart';
 import 'package:flutter/material.dart';
 import 'package:chasski/api/path_key_api.dart';
 import 'package:pocketbase/pocketbase.dart';
 
-class TCheckP00Provider with ChangeNotifier {
+class TCheckP03Provider with ChangeNotifier {
   List<TCheckPointsModel> listAsistencia = [];
 
-  TCheckP00Provider() {
+  TCheckP03Provider() {
     print('CheckAR00 Inicializado');
     getTAsistenciaApp();
     realtime();
@@ -35,7 +38,7 @@ class TCheckP00Provider with ChangeNotifier {
   }
 
   getTAsistenciaApp() async {
-    List<RecordModel> response = await TCheckPoitns_AR0.getAsitenciaPk();
+    List<RecordModel> response = await TCheckPoitns_AR03.getAsitenciaPk();
     final date = response.map((e) {
       e.data['id'] = e.id;
       e.data['created'] = DateTime.parse(e.created);
@@ -66,7 +69,7 @@ class TCheckP00Provider with ChangeNotifier {
         dorsal: dorsal!
         );
 
-    await TCheckPoitns_AR0.postAsistenciaPk(data);
+    await TCheckPoitns_AR03.postAsistenciaPk(data);
 
     await Future.delayed(const Duration(seconds: 2));
     isSyncing = false;
@@ -86,7 +89,7 @@ class TCheckP00Provider with ChangeNotifier {
         nombre: nombre!,
         dorsal: dorsal!);
 
-    await TCheckPoitns_AR0.putAsitneciaPk(id: id, data: data);
+    await TCheckPoitns_AR03.putAsitneciaPk(id: id, data: data);
 
     await Future.delayed(const Duration(seconds: 2));
     isSyncing = false;
@@ -94,7 +97,7 @@ class TCheckP00Provider with ChangeNotifier {
   }
 
   deleteTAsistenciaApp(String id) async {
-    await TCheckPoitns_AR0.deleteAsistentciaPk(id);
+    await TCheckPoitns_AR03.deleteAsistentciaPk(id);
     notifyListeners();
   }
   //METODO PARA POST O UPDATE
@@ -129,7 +132,7 @@ class TCheckP00Provider with ChangeNotifier {
   }
 
   Future<void> realtime() async {
-    await pb.collection('ar_chp_0_partida').subscribe('*', (e) {
+    await pb.collection('ar_chp_3_punto').subscribe('*', (e) {
       print('REALTIME CHECK0 ${e.action}');
 
       switch (e.action) {

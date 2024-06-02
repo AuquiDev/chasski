@@ -2,7 +2,7 @@
 
 import 'package:chasski/models/model_list_check_points_ar.dart';
 import 'package:chasski/offline/t_comparativa_list_check_points_ar.dart';
-import 'package:chasski/provider/provider_t_list_check_ar.dart';
+import 'package:chasski/provider/provider_t_list_check_points.dart';
 import 'package:chasski/sqllite/db_crud_list_checkpoints_ar.dart';
 import 'package:flutter/material.dart';
 import 'package:chasski/sqllite/db_create_local_storage.dart';
@@ -10,9 +10,9 @@ import 'package:chasski/utils/custom_text.dart';
 import 'package:provider/provider.dart';
 
 class DBTListCheckPoitns_ARProvider with ChangeNotifier {
-  List<TListCheckPoitns_ARModels> listsql = []; //LISTA para alamcenar los datos
+  List<TListChekPoitnsModel> listsql = []; //LISTA para alamcenar los datos
 
-  List<TListCheckPoitns_ARModels> get data => listsql;
+  List<TListChekPoitnsModel> get data => listsql;
 
   //Intancia del Crud de asistencai DB local.
   CrudDBListCheckPoitns crudDb = CrudDBListCheckPoitns();
@@ -28,7 +28,7 @@ class DBTListCheckPoitns_ARProvider with ChangeNotifier {
   }
   bool isSyncing = false;
   
-  Future<void> insertData(TListCheckPoitns_ARModels e,bool loading) async {
+  Future<void> insertData(TListChekPoitnsModel e,bool loading) async {
     isSyncing = true;
     notifyListeners();
 
@@ -42,7 +42,7 @@ class DBTListCheckPoitns_ARProvider with ChangeNotifier {
     // notifyListeners();
   }
 
-  Future<void> updateData(TListCheckPoitns_ARModels e, int? idsql, bool loading) async {
+  Future<void> updateData(TListChekPoitnsModel e, int? idsql, bool loading) async {
     isSyncing = true;
     notifyListeners();
 
@@ -91,7 +91,7 @@ class DBTListCheckPoitns_ARProvider with ChangeNotifier {
 //METODO GUARDAR EN SQLITE
   //No t e olvides de llamarlo en el metodo get
   bool offlineSaving = false;
-  Future<void> guardarEnSQlLite( List<TListCheckPoitns_ARModels> api, BuildContext context) async {
+  Future<void> guardarEnSQlLite( List<TListChekPoitnsModel> api, BuildContext context) async {
     incidenciasCarga = [];
     //  listsql;//Provider.of<DBProductoAppProvider>(context, listen: false);
 
@@ -236,8 +236,8 @@ class DBTListCheckPoitns_ARProvider with ChangeNotifier {
     incidenciasSinc = [];
 
     final dataProvider =
-        Provider.of<TListCheckPoitns_ARProvider>(context, listen: false);
-    List<TListCheckPoitns_ARModels> listaApi = dataProvider.listAsistencia;
+        Provider.of<TListCheckPoitnsProvider>(context, listen: false);
+    List<TListChekPoitnsModel> listaApi = dataProvider.listAsistencia;
     offlineSync = true;
     notifyListeners();
 
@@ -335,7 +335,7 @@ class DBTListCheckPoitns_ARProvider with ChangeNotifier {
           //Si el porducto no existe en lista API y no tiene id, entonces es un nuevo porducto
           await dataProvider.saveProductosApp(e); //POST xq no tien ID
           // Buscamos el producto en la listaApi por sus atributos únicos.
-          TListCheckPoitns_ARModels productoEnListaApi = listaApi.firstWhere(
+          TListChekPoitnsModel productoEnListaApi = listaApi.firstWhere(
             (k) =>
                 // k.idEmpleados == e.idEmpleados &&
                 // k.idTrabajo == e.idTrabajo &&

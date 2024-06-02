@@ -60,18 +60,18 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               //CARRUSEL CON INDICADOR: GESTION
-              GestureDetector(
-                onTap: () {
-                  final layoutmodel =
-                      Provider.of<LayoutModel>(context, listen: false);
-                  layoutmodel.currentPage = FormularioAsistenciapage();
-                },
-                child: Card(
-                    child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: H2Text(text: 'Asistencias', fontSize: 14,),
-                )),
-              ),
+              // GestureDetector(
+              //   onTap: () {
+              //     final layoutmodel =
+              //         Provider.of<LayoutModel>(context, listen: false);
+              //     layoutmodel.currentPage = FormularioAsistenciapage();
+              //   },
+              //   child: Card(
+              //       child: Padding(
+              //     padding: const EdgeInsets.all(8.0),
+              //     child: H2Text(text: 'Asistencias', fontSize: 14,),
+              //   )),
+              // ),
 
               active ? SizedBox() : ConectivityDemo(), //CONECTIVITY
 

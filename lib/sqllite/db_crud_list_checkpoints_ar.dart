@@ -9,7 +9,7 @@ class CrudDBListCheckPoitns {
   
   final DBLocalStorage _databaseTablesDB =  DBLocalStorage.instance;
 
-   Future<void> insertarProductos(TListCheckPoitns_ARModels e) async {
+   Future<void> insertarProductos(TListChekPoitnsModel e) async {
     Database db = await _databaseTablesDB.checkinDatabase();
 
     await db.insert(
@@ -35,19 +35,19 @@ class CrudDBListCheckPoitns {
     );
   }
 
-  Future<List<TListCheckPoitns_ARModels>> getTable() async {
+  Future<List<TListChekPoitnsModel>> getTable() async {
     Database? db = await _databaseTablesDB.checkinDatabase();
 
     List<Map<String, dynamic>> respponse = await db.query('tlistcheckpointsar');
 
     // print('Data from Database: $respponse');
 
-    List<TListCheckPoitns_ARModels> listData = List<TListCheckPoitns_ARModels>.from(
+    List<TListChekPoitnsModel> listData = List<TListChekPoitnsModel>.from(
         respponse.map((e) => convertirDatos(e)).toList());
     return listData;
   }
 
-  Future<void> updateTable(TListCheckPoitns_ARModels e, int? idsql) async {
+  Future<void> updateTable(TListChekPoitnsModel e, int? idsql) async {
     Database db = await _databaseTablesDB.checkinDatabase();
 
    await db.update(
@@ -93,8 +93,8 @@ class CrudDBListCheckPoitns {
 //ES como un FROMJSON personalizado
 //ANTES DE MOSTRAR LOS DATOS DEBEMOS OCNVERTIRLOS compatible con el modelos para hcer el get .
 // Método para convertir los datos del mapa a un objeto TRunnersModel
-  TListCheckPoitns_ARModels convertirDatos(Map<String, dynamic> json) {
-    return TListCheckPoitns_ARModels(
+  TListChekPoitnsModel convertirDatos(Map<String, dynamic> json) {
+    return TListChekPoitnsModel(
       idsql: json['idsql'],
       id: json["id"],
       collectionId: json["collectionId"],

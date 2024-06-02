@@ -92,7 +92,7 @@ class StorageLocalChar extends StatelessWidget {
     );
     data.sort((a, b) => a.value.compareTo(b.value));
     return Container(
-       color: Colors.white,
+      //  color: Colors.white,
       margin: EdgeInsets.all(10),
       child: SfCircularChart(
         title: const ChartTitle(

@@ -1,8 +1,8 @@
 // ignore_for_file: use_build_context_synchronously, unnecessary_null_comparison
 
 import 'package:chasski/models/model_check_points.dart';
-import 'package:chasski/provider/provider_sql_check_p0.dart';
-import 'package:chasski/provider/provider_t_check_p0.dart';
+import 'package:chasski/provider/provider_sql_checkp_ar_06.dart';
+import 'package:chasski/provider/provider_t_checkp_ar_06.dart';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -10,21 +10,22 @@ import 'package:chasski/offline/pdf_incidentes.dart';
 import 'package:chasski/provider_cache/provider_cache.dart';
 import 'package:chasski/utils/custom_text.dart';
 import 'package:chasski/utils/format_fecha.dart';
-import 'package:chasski/widgets/boton_style.dart';
 import 'package:provider/provider.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 
-class DBCheckPoints00Page extends StatefulWidget {
-  const DBCheckPoints00Page({
+class DBCheckPoints06Page extends StatefulWidget {
+  const DBCheckPoints06Page({
     super.key,
+   required this.nombre
   });
+ final String nombre;
 
   @override
-  State<DBCheckPoints00Page> createState() => _DBCheckPoints00PageState();
+  State<DBCheckPoints06Page> createState() => _DBCheckPoints06PageState();
 }
 
-class _DBCheckPoints00PageState extends State<DBCheckPoints00Page> {
+class _DBCheckPoints06PageState extends State<DBCheckPoints06Page> {
   final ScrollController _scrollController = ScrollController();
   bool showAppBar = true;
 
@@ -48,7 +49,7 @@ class _DBCheckPoints00PageState extends State<DBCheckPoints00Page> {
     super.initState();
     //Scroll controller
     _scrollController.addListener(_onScroll);
-    Provider.of<DBCheckP00AppProvider>(context, listen: false).initDatabase();
+    Provider.of<DBCheckPointsAppProviderAr06>(context, listen: false).initDatabase();
   }
 
   @override
@@ -65,14 +66,14 @@ class _DBCheckPoints00PageState extends State<DBCheckPoints00Page> {
     // final isOffline = Provider.of<UsuarioProvider>(context).isOffline;
     // bool isavingProvider = isOffline ? isSavinSQL : isSavingSerer;
 
-    final dbProducto = Provider.of<DBCheckP00AppProvider>(context);
+    final dbProducto = Provider.of<DBCheckPointsAppProviderAr06>(context);
     List<TCheckPointsModel> listaSQl = dbProducto.listsql
       ..sort(
         (a, b) => a.idsql!.compareTo(b.idsql!),
       );
     bool issavingCarga = dbProducto.offlineSaving;
     bool isdeletCarga = dbProducto.isSyncing;
-    final dataProvider = Provider.of<TCheckP00Provider>(context);
+    final dataProvider = Provider.of<TCheckP06Provider>(context);
     final listaDatos = dataProvider.listAsistencia;
 
     // final cacheProvider = Provider.of<UsuarioProvider>(context);
@@ -91,11 +92,17 @@ class _DBCheckPoints00PageState extends State<DBCheckPoints00Page> {
                 children: [
                   Column(
                     children: [
+                      H2Text(
+                            text: widget.nombre,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red,
+                          ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           H2Text(
-                            text: 'PARTIDA CHECK POINT',
+                           text: 'CHECK POINT - PUNTO 6',
                             fontSize: 17,
                             fontWeight: FontWeight.bold,
                             color: Colors.red,

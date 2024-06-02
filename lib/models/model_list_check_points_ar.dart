@@ -2,7 +2,7 @@
 
 import 'package:chasski/utils/parse_fecha_nula.dart';
 
-class TListCheckPoitns_ARModels {
+class TListChekPoitnsModel {
    int? idsql;//Se añade con fines de uso en sqllite 
     String? id;
     String? collectionId;
@@ -19,9 +19,10 @@ class TListCheckPoitns_ARModels {
     DateTime horaApertura;
     DateTime horaCierre;
     bool estatus;
-    String itemsList;
+    String? itemsList;
+    String? personal;
 
-    TListCheckPoitns_ARModels({
+    TListChekPoitnsModel({
         this.idsql,
          this.id,
          this.collectionId,
@@ -38,10 +39,11 @@ class TListCheckPoitns_ARModels {
         required this.horaApertura,
         required this.horaCierre,
         required this.estatus,
-        required this.itemsList,
+         this.itemsList,
+        this.personal
     });
 
-    factory TListCheckPoitns_ARModels.fromJson(Map<String, dynamic> json) => TListCheckPoitns_ARModels(
+    factory TListChekPoitnsModel.fromJson(Map<String, dynamic> json) => TListChekPoitnsModel(
         id: json["id"],
         collectionId: json["collectionId"],
         collectionName: json["collectionName"],
@@ -57,6 +59,7 @@ class TListCheckPoitns_ARModels {
         horaCierre: parseDateTime(json["hora_cierre"]),
         estatus: json["estatus"],
         itemsList: json["items_list"] ?? '',
+        personal: json["personal"]?? ''
     );
 
     Map<String, dynamic> toJson() => {
@@ -75,5 +78,6 @@ class TListCheckPoitns_ARModels {
         "hora_cierre": horaCierre.toIso8601String(),
         "estatus": estatus,
         "items_list": itemsList,
+        "personal": personal
     };
 }

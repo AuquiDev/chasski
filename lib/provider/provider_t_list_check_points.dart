@@ -10,29 +10,29 @@ import 'package:chasski/api/path_key_api.dart';
 // import 'package:chaskis/poketbase/t_asistencia.dart';
 import 'package:pocketbase/pocketbase.dart';
 
-class TListCheckPoitns_ARProvider with ChangeNotifier {
-  List<TListCheckPoitns_ARModels> listAsistencia = [];
+class TListCheckPoitnsProvider with ChangeNotifier {
+  List<TListChekPoitnsModel> listAsistencia = [];
 
-  TListCheckPoitns_ARProvider() {
+  TListCheckPoitnsProvider() {
     print('RUNNERS SERVICES Inicializado');
     getTAsistenciaApp();
     realtime();
   }
 
   //SET Y GET
-  List<TListCheckPoitns_ARModels> get e => listAsistencia;
+  List<TListChekPoitnsModel> get e => listAsistencia;
 
-  void addAsistencia(TListCheckPoitns_ARModels e) {
+  void addAsistencia(TListChekPoitnsModel e) {
     listAsistencia.add(e);
     notifyListeners();
   }
 
-  void updateTAsistencia(TListCheckPoitns_ARModels e) {
+  void updateTAsistencia(TListChekPoitnsModel e) {
     listAsistencia[listAsistencia.indexWhere((x) => x.id == e.id)] = e;
     notifyListeners();
   }
 
-  void deleteTAsistencia(TListCheckPoitns_ARModels e) {
+  void deleteTAsistencia(TListChekPoitnsModel e) {
     listAsistencia.removeWhere((x) => x.id == e.id);
     notifyListeners();
   }
@@ -45,7 +45,7 @@ class TListCheckPoitns_ARProvider with ChangeNotifier {
       e.data['updated'] = DateTime.parse(e.updated);
       e.data["collectionId"] = e.collectionId;
       e.data["collectionName"] = e.collectionName;
-      TListCheckPoitns_ARModels ubicaciones =  TListCheckPoitns_ARModels.fromJson(e.data);
+      TListChekPoitnsModel ubicaciones =  TListChekPoitnsModel.fromJson(e.data);
       addAsistencia(ubicaciones);
     }).toList();
     // print(response);
@@ -69,7 +69,7 @@ class TListCheckPoitns_ARProvider with ChangeNotifier {
    String? itemsList }) async {
     isSyncing = true;
     notifyListeners();
-    TListCheckPoitns_ARModels data = TListCheckPoitns_ARModels(
+    TListChekPoitnsModel data = TListChekPoitnsModel(
         id: '',
       idEvento: idEvento!,
       ubicacion: ubicacion!,
@@ -105,7 +105,7 @@ class TListCheckPoitns_ARProvider with ChangeNotifier {
    String? itemsList }) async {
     isSyncing = true;
     notifyListeners();
-    TListCheckPoitns_ARModels data = TListCheckPoitns_ARModels(
+    TListChekPoitnsModel data = TListChekPoitnsModel(
         id: id!,
       idEvento: idEvento!,
       ubicacion: ubicacion!,
@@ -130,7 +130,7 @@ class TListCheckPoitns_ARProvider with ChangeNotifier {
     notifyListeners();
   }
   //METODO PARA POST O UPDATE
-  Future<void> saveProductosApp(TListCheckPoitns_ARModels e) async {
+  Future<void> saveProductosApp(TListChekPoitnsModel e) async {
     isSyncing = true;
     notifyListeners();
     if (e.id!.isEmpty) {
@@ -180,7 +180,7 @@ class TListCheckPoitns_ARProvider with ChangeNotifier {
           e.record!.data['updated'] = DateTime.parse(e.record!.updated);
           e.record!.data["collectionId"] = e.record!.collectionId;
           e.record!.data["collectionName"] = e.record!.collectionName;
-          addAsistencia(TListCheckPoitns_ARModels.fromJson(e.record!.data));
+          addAsistencia(TListChekPoitnsModel.fromJson(e.record!.data));
           break;
         case 'update':
           e.record!.data['id'] = e.record!.id;
@@ -188,7 +188,7 @@ class TListCheckPoitns_ARProvider with ChangeNotifier {
           e.record!.data['updated'] = DateTime.parse(e.record!.updated);
           e.record!.data["collectionId"] = e.record!.collectionId;
           e.record!.data["collectionName"] = e.record!.collectionName;
-          updateTAsistencia(TListCheckPoitns_ARModels.fromJson(e.record!.data));
+          updateTAsistencia(TListChekPoitnsModel.fromJson(e.record!.data));
           break;
         case 'delete':
           e.record!.data['id'] = e.record!.id;
@@ -196,7 +196,7 @@ class TListCheckPoitns_ARProvider with ChangeNotifier {
           e.record!.data['updated'] = DateTime.parse(e.record!.updated);
           e.record!.data["collectionId"] = e.record!.collectionId;
           e.record!.data["collectionName"] = e.record!.collectionName;
-          deleteTAsistencia(TListCheckPoitns_ARModels.fromJson(e.record!.data));
+          deleteTAsistencia(TListChekPoitnsModel.fromJson(e.record!.data));
           break;
         default:
       }
