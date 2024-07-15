@@ -81,4 +81,18 @@ class TListChekListModel {
        'items_list': itemsList!.map((e) => e.toJson()).toList(),
         'personal': personal!.map((e) => e.toJson()).toList(),
     };
+
+   
 }
+
+  TListChekListModel checkListDefault() {
+    return TListChekListModel(
+    idEvento: 'idEvento', 
+    nombre: 'nombre', 
+    descripcion: 'descripcion', 
+    ubicacion: 'ubicacion', 
+    orden: 0, 
+    horaApertura: DateTime.now(), 
+    horaCierre: DateTime.now(), 
+    estatus: true);
+  }

@@ -1,11 +1,11 @@
 
 
+import 'package:chasski/pages/t_local_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:chasski/pages/homepage.dart';
 
 
 class LayoutModel with ChangeNotifier {
-  Widget _currentPage =  const HomePage();
+  Widget _currentPage =  const LocalStoragePage();
 
 
   set currentPage(Widget page){

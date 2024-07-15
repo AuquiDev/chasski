@@ -8,6 +8,7 @@ import 'package:chasski/provider/provider_t_runners_ar.dart';
 import 'package:chasski/models/model_runners_ar.dart';
 
 import 'package:chasski/widgets/close_page_buton.dart';
+import 'package:chasski/widgets/state_signal_icons.dart';
 import 'package:fade_out_particle/fade_out_particle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -57,7 +58,7 @@ class _QrPage02ChListState extends State<QrPage02ChList> {
   Widget build(BuildContext context) {
     bool isffline = Provider.of<UsuarioProvider>(context).isOffline;
     //LISTA OFFLINE
-    final runnerServerList = Provider.of<TRunnersProvider>(context).listAsistencia;
+    final runnerServerList = Provider.of<TRunnersProvider>(context).listaRunner;
     // final runnerSQlList = Provider.of<DBRunnersAppProvider>(context).listsql;
     List<TRunnersModel> runnerList =
         // isffline ? runnerSQlList : 
@@ -110,10 +111,10 @@ class _QrPage02ChListState extends State<QrPage02ChList> {
               ),
             ),
           ),
-          Positioned(
+           Positioned(
               right: 20,
               top: 20,
-              child: SafeArea(child: OfflineSIgnalButonSmall())),
+              child: SafeArea(child: OfflineSIgnalButon())),
           Positioned(left: 10, top: 10, child: ClosePageButon()),
         ],
       ),

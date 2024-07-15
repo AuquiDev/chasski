@@ -28,7 +28,7 @@ class CrudDBRunners {
         'telefono': e.telefono,
         'estado': e.estado ? 1 : 0, // Convertir booleano a entero
         'genero': e.genero,
-        'numeroDeDocumentos': e.numeroDeDocumentos,
+        'numeroDeDocumentos': e.numeroDeDocumentos.toInt(),
         'tallaDePolo': e.tallaDePolo,
       },
       conflictAlgorithm: ConflictAlgorithm.replace,
@@ -67,7 +67,7 @@ class CrudDBRunners {
         'telefono': e.telefono,
         'estado': e.estado ? 1 : 0, // Convertir booleano a entero
         'genero': e.genero,
-        'numeroDeDocumentos': e.numeroDeDocumentos,
+        'numeroDeDocumentos': e.numeroDeDocumentos.toInt(),
         'tallaDePolo': e.tallaDePolo,
       },
       conflictAlgorithm: ConflictAlgorithm.replace,
@@ -111,7 +111,7 @@ class CrudDBRunners {
       telefono: json["telefono"],
       estado: json["estado"] == 1, // Convertir entero a booleano
       genero: json["genero"],
-      numeroDeDocumentos: json["numeroDeDocumentos"],
+      numeroDeDocumentos: json["numeroDeDocumentos"].toInt(),
       tallaDePolo: json["tallaDePolo"],
     );
 }

@@ -376,7 +376,7 @@ class CardAsistencia extends StatelessWidget {
                       color: Colors.white,
                     ),
                     H2Text(
-                      text: formatFechaPDfdiaMesAno(e.fecha),
+                      text: formatFecha(e.fecha),
                       fontSize: 10,
                       maxLines: 2,
                       textAlign: TextAlign.center,

@@ -5,11 +5,11 @@ import 'package:chasski/provider/provider_sql_runners_ar.dart';
 import 'package:chasski/provider/provider_t_runners_ar.dart';
 import 'package:chasski/page_qr/qr_generate_runners.dart';
 import 'package:delayed_display/delayed_display.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:chasski/provider_cache/provider_cache.dart';
 import 'package:chasski/utils/custom_text.dart';
 import 'package:provider/provider.dart';
-import 'package:quickalert/quickalert.dart';
 import 'package:flutter_expanded_tile/flutter_expanded_tile.dart';
 
 class QrListaRunners extends StatefulWidget {
@@ -38,23 +38,55 @@ class _QrListaRunnersState extends State<QrListaRunners> {
     _controller = ExpandedTileController(isExpanded: false);
   }
 
-  void mostrarDialogoSeleccion() {
-    QuickAlert.show(
-      context: context,
-      type: QuickAlertType.loading,
-      title: 'Generar QR',
-      text:'Selecciona un usuario de la lista y genera su código QR para exportar.',
-      confirmBtnColor: const Color(0xFF18861C),
-      cancelBtnTextStyle:  TextStyle(color: Colors.blue),
-      confirmBtnText: 'Aceptar',
-      cancelBtnText: 'Aceptar',
-      showCancelBtn: true,
-      showConfirmBtn: true,
-      onCancelBtnTap: () {
-        Navigator.pop(context);
-      },
-    );
-  }
+  
+void mostrarDialogoSeleccion() {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      if (Theme.of(context).platform == TargetPlatform.iOS) {
+        // Para iOS (Cupertino Dialog)
+        return CupertinoAlertDialog(
+          title: Text('CHECK POINTS'),
+          content: Text(
+            'Por favor, selecciona un punto de control al que tengas permisos de acceso.',
+          ),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text('Aceptar'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      } else {
+        // Para Android (Material Dialog)
+        return AlertDialog(
+          title: Text('CHECK POINTS'),
+          content: Text(
+            'Por favor, selecciona un punto de control al que tengas permisos de acceso.',
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cancelar'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+              child: Text('Aceptar'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      }
+    },
+  );
+}
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +94,7 @@ class _QrListaRunnersState extends State<QrListaRunners> {
     bool isffline = dataCache.isOffline;
 
     final personalServerList =
-        Provider.of<TRunnersProvider>(context).listAsistencia;
+        Provider.of<TRunnersProvider>(context).listaRunner;
     final personSQlList = Provider.of<DBRunnersAppProvider>(context).listsql;
     List<TRunnersModel> personalList =
         isffline ? personSQlList : personalServerList;
@@ -92,12 +124,12 @@ class _QrListaRunnersState extends State<QrListaRunners> {
                             expansionAnimationCurve: Curves.easeInOut,
                             theme: ExpandedTileThemeData(
                               headerColor: color,
-                              headerRadius: 14.0,
+                              // headerRadius: 14.0,
                               headerPadding: EdgeInsets.all(14.0),
                               headerSplashColor: Colors.white,
                               contentBackgroundColor: Colors.white,
                               contentPadding: EdgeInsets.all(24.0),
-                              contentRadius: 12.0,
+                              // contentRadius: 12.0,
                             ),
                             controller: _controller,
                             title: Column(

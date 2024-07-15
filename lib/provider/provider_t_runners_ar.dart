@@ -1,15 +1,22 @@
 // ignore_for_file: avoid_print
 
 
+import 'dart:async';
+import 'dart:io';
+
+import 'package:audioplayers/audioplayers.dart';
 import 'package:chasski/models/model_runners_ar.dart';
 import 'package:chasski/poketbase/t_runners_ar.dart';
+import 'package:chasski/provider_cache/provider_runner.dart';
+import 'package:chasski/shared%20preferences/shared_global.dart';
 import 'package:flutter/material.dart';
 import 'package:chasski/api/path_key_api.dart';
 // import 'package:chaskis/poketbase/t_asistencia.dart';
 import 'package:pocketbase/pocketbase.dart';
+import 'package:provider/provider.dart';
 
-class TRunnersProvider with ChangeNotifier {
-  List<TRunnersModel> listAsistencia = [];
+class TRunnersProvider with ChangeNotifier { 
+  List<TRunnersModel> listaRunner = [];
 
   TRunnersProvider() {
     print('RUNNERS SERVICES Inicializado');
@@ -18,20 +25,20 @@ class TRunnersProvider with ChangeNotifier {
   }
 
   //SET Y GET
-  List<TRunnersModel> get e => listAsistencia;
+  List<TRunnersModel> get e => listaRunner;
 
   void addAsistencia(TRunnersModel e) {
-    listAsistencia.add(e);
+    listaRunner.add(e);
     notifyListeners();
   }
 
   void updateTAsistencia(TRunnersModel e) {
-    listAsistencia[listAsistencia.indexWhere((x) => x.id == e.id)] = e;
+    listaRunner[listaRunner.indexWhere((x) => x.id == e.id)] = e;
     notifyListeners();
   }
 
   void deleteTAsistencia(TRunnersModel e) {
-    listAsistencia.removeWhere((x) => x.id == e.id);
+    listaRunner.removeWhere((x) => x.id == e.id);
     notifyListeners();
   }
 
@@ -83,7 +90,7 @@ class TRunnersProvider with ChangeNotifier {
       tallaDePolo: tallaDePolo!,
         );
 
-    await TRunners.postAsistenciaPk(data);
+    await TRunners.postAsistenciaPk(data, );
 
     await Future.delayed(const Duration(seconds: 2));
     isSyncing = false;
@@ -102,7 +109,8 @@ class TRunnersProvider with ChangeNotifier {
     bool? estado,
     String? genero,
     int? numeroDeDocumentos,
-    String? tallaDePolo, }) async {
+    String? tallaDePolo, 
+     File? imagenFile}) async {
     isSyncing = true;
     notifyListeners();
     TRunnersModel data = TRunnersModel(
@@ -119,7 +127,7 @@ class TRunnersProvider with ChangeNotifier {
       numeroDeDocumentos: numeroDeDocumentos!,
       tallaDePolo: tallaDePolo!,);
 
-    await TRunners.putAsitneciaPk(id: id, data: data);
+    await TRunners.putAsitneciaPk(id: id, data: data,imagen:imagenFile );
 
     await Future.delayed(const Duration(seconds: 2));
     isSyncing = false;
@@ -204,5 +212,86 @@ class TRunnersProvider with ChangeNotifier {
         default:
       }
     });
+  }
+
+  bool islogin = false;
+
+void playSound() async {
+    AudioPlayer audioPlayer = AudioPlayer();
+    await audioPlayer.play(AssetSource('song/gota.mp3')); // Ruta a tu archivo de sonido
+  }
+  //Metodo de Autentificacion
+  Future<bool> login({ BuildContext? context, int? cedulaDNI,
+  // String? idUsuario
+  }) async {
+    islogin = true;
+    notifyListeners();
+    // ignore: unused_local_variable
+    int userindex = -1;
+    try {
+      //CONDICIONALOFFLINE aumentamos este codigo para asignar el valor de la listausuarios en modo offline.
+      // bool isOffline =   Provider.of<UsuarioProvider>(context!, listen: false).isOffline;
+
+      // final listaRunnerSQL = Provider.of<DBRunnersAppProvider>(context, listen: false).listsql;
+
+      // listaRunner = isOffline ? listaRunnerSQL : listaRunner;
+      //Esta bsuqueda devulece un umeor, si el numero estabne en leindex es decir de 0 a mas , si es menor de 0 el usuairo n oexiste.
+      userindex = listaRunner.indexWhere((e) {
+       
+        bool ismath = (
+          e.numeroDeDocumentos.toString().toLowerCase() ==  
+          cedulaDNI.toString().toLowerCase() 
+          // &&  e.telefono == idUsuario
+          );
+       
+        if (ismath) {
+          // Si se encuentra el usuario, establecerlo en UsuarioProvider
+          Provider.of<RunnerProvider>(context!, listen: false)  .setusuarioLogin(e);
+          // Guardar la información del usuario en SharedPreferences
+          SharedPrefencesGlobal().saveIDEvento(e.idEvento);
+          SharedPrefencesGlobal().saveIDDistancia(e.idDistancia);///
+          SharedPrefencesGlobal().saveID(e.id!);
+          SharedPrefencesGlobal().saveNombreRun(e.nombre);
+          SharedPrefencesGlobal().saveApellidos(e.apellidos);
+          SharedPrefencesGlobal().saveDorsal(e.dorsal);
+          SharedPrefencesGlobal().savePais(e.pais);
+          SharedPrefencesGlobal().saveTallaPolo(e.tallaDePolo);
+          
+         
+          SharedPrefencesGlobal().saveImageRun(e.imagen!);
+          SharedPrefencesGlobal().saveCollectionID(e.collectionId!);
+        }
+        return ismath;
+      });
+   
+      //Hacer un sonido si el usuario ha sido en contrado
+      if (userindex != -1) {
+        playSound();
+      }
+    } catch (e) {
+      userindex = -1;
+        
+    }
+    
+    // Simular una carga con un temporizador
+    await Future.delayed(const Duration(seconds: 2));
+   
+    // Lógica de navegación o mensaje de error
+    if (userindex != -1) {
+        print('ESTATE IF: $islogin');
+      islogin = true;
+      notifyListeners();
+      // Configurar un temporizador para cambiar islogin a false después de 2 segundos
+      Timer(const Duration(seconds: 4), () {
+        islogin = false;
+        notifyListeners();
+      });
+      return islogin;
+    } else {
+      print('ESTATE ELSE: $islogin - $userindex');
+      islogin = false;
+      notifyListeners();
+      return islogin;
+    }
   }
 }

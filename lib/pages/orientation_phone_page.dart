@@ -1,5 +1,6 @@
-import 'package:chasski/utils/gradient_background.dart';
-import 'package:chasski/widgets/state_signal_small.dart';
+
+import 'package:chasski/widgets/color_custom.dart';
+import 'package:chasski/widgets/state_signal_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:chasski/provider_cache/current_page.dart';
@@ -21,10 +22,10 @@ class _PhonePageState extends State<PhonePage> {
   FlutterTts flutterTts = FlutterTts();
 
   SharedPrefencesGlobal sharedPrefs = SharedPrefencesGlobal();
+  
   @override
   void initState() {
-    final currenUser =
-        Provider.of<UsuarioProvider>(context, listen: false).usuarioEncontrado;
+    final currenUser =  Provider.of<UsuarioProvider>(context, listen: false).usuarioEncontrado;
     currenUser != null
         ? _speackInit('Bienvenido, ${currenUser.nombre}')
         : _speackInit('¡Es un placer saludarte de nuevo!');
@@ -37,21 +38,24 @@ class _PhonePageState extends State<PhonePage> {
   @override
   Widget build(BuildContext context) {
     final layoutmodel = Provider.of<LayoutModel>(context);
-    return Container(
-      decoration: gradientBackground(),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.redAccent),
-          backgroundColor: Colors.transparent,
-          title: const TextAppBar(),
-          actions: [
-            OfflineSIgnalButonSmall(),
-          ],
-        ),
-        body: layoutmodel.currentPage, //const ListaOpciones(),
-        drawer: const MenuPrincipal(),
+
+     final dataProvider = Provider.of<UsuarioProvider>(context);
+    bool isoffline = dataProvider.isOffline;
+
+    return Scaffold(
+      backgroundColor:CustomColors.lightIndigo,
+      drawerScrimColor: Colors.white10,
+      appBar: AppBar(
+        centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: CustomColors.lightIndigo,
+        title: const TextAppBar(),
+        actions: [
+          const SignalAPi(),
+        ],
       ),
+      body: layoutmodel.currentPage, //const ListaOpciones(),
+      drawer: const MenuPrincipal(),
     );
   }
 

@@ -1,6 +1,5 @@
-import 'dart:ui';
-import 'package:chasski/pages/t_empleado_login.dart';
-import 'package:chasski/utils/gradient_background.dart';
+
+import 'package:chasski/pages/t_login_home.dart';
 import 'package:flutter/material.dart';
 
 class SplahScreen extends StatefulWidget {
@@ -29,20 +28,14 @@ class _SplahScreenState extends State<SplahScreen>
     );
 
     _controller.forward();
-    Future.delayed(const Duration(seconds: 3), () {
-      setState(() {
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+        setState(() {
         _showHomePage = true;
       });
+      }
     });
     
-    // _controller.addStatusListener((status) {
-    //   if (status == AnimationStatus.completed) {
-    //     Navigator.pushReplacement(
-    //       context,
-    //       MaterialPageRoute(builder: (context) => LoginPage()),
-    //     );
-    //   }
-    // });
   }
 
   @override
@@ -50,13 +43,9 @@ class _SplahScreenState extends State<SplahScreen>
     return Scaffold(
       body: Stack(
         children: [
-          Positioned.fill(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-              child: Container(
-                decoration: gradientBackground(),
-              ),
-            ),
+          Container(
+            color: Colors.white,
+            // decoration: gradientBackgroundlogin(),
           ),
           Center(
             child: Stack(
@@ -72,20 +61,29 @@ class _SplahScreenState extends State<SplahScreen>
                     width: MediaQuery.of(context).size.width * .2,
                   ),
                 ),
+                
                 SlideTransition(
                   position: Tween<Offset>(
                     begin: Offset(0, 1),
                     end: Offset.zero,
                   ).animate(_controller),
-                  child: Image.asset(
-                    'assets/img/logo_smallar.png',
-                    width: MediaQuery.of(context).size.width * .2,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(
+                      'assets/img/logo_smallar.png',
+                      width: MediaQuery.of(context).size.width * .2,
+                    ),
                   ),
                 ),
-                AnimatedOpacity(
+                // AnimatedOpacity(
+                //   opacity: _showHomePage ? 1.0 : 0.0,
+                //   duration: const Duration(seconds: 4),
+                //   child: LoginPage(),
+                // )
+                 AnimatedOpacity(
                   opacity: _showHomePage ? 1.0 : 0.0,
                   duration: const Duration(seconds: 4),
-                  child: LoginPage(),
+                  child: LoginHome(),
                 )
               ],
             ),

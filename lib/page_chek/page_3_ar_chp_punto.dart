@@ -9,6 +9,7 @@ import 'package:chasski/provider/provider_sql_list_check_points_ar.dart';
 import 'package:chasski/provider/provider_t_checkp_ar_03.dart';
 // import 'package:chasski/provider/provider_t_checkp_ar_02.dart';
 import 'package:chasski/widgets/close_page_buton.dart';
+import 'package:chasski/widgets/state_signal_icons.dart';
 import 'package:fade_out_particle/fade_out_particle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -62,7 +63,7 @@ class _QrPageAR03ChPState extends State<QrPageAR03ChP> {
     bool isffline = Provider.of<UsuarioProvider>(context).isOffline;
     //LISTA OFFLINE
     final runnerServerList =
-        Provider.of<TRunnersProvider>(context).listAsistencia;
+        Provider.of<TRunnersProvider>(context).listaRunner;
     final runnerSQlList = Provider.of<DBRunnersAppProvider>(context).listsql;
     List<TRunnersModel> runnerList =
         isffline ? runnerSQlList : runnerServerList;
@@ -117,7 +118,7 @@ class _QrPageAR03ChPState extends State<QrPageAR03ChP> {
           Positioned(
               right: 20,
               top: 20,
-              child: SafeArea(child: OfflineSIgnalButonSmall())),
+              child: SafeArea(child: OfflineSIgnalButon())),
           Positioned(left: 10, top: 10, child: ClosePageButon()),
         ],
       ),

@@ -368,11 +368,11 @@ class ListTAsistencias extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        H2Text(
-                            text: fechaFiltrada(fechaDateTime),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                            color: const Color(0xFF5B5353)),
+                        // H2Text(
+                        //     text: fechaFiltrada(fechaDateTime),
+                        //     fontWeight: FontWeight.bold,
+                        //     fontSize: 12,
+                        //     color: const Color(0xFF5B5353)),
                         Text(
                           '${entradaFcreacion.length} regs.',
                           style: const TextStyle(
@@ -435,7 +435,7 @@ class ListTAsistencias extends StatelessWidget {
                                 children: [
                                   H2Text(
                                     text:
-                                        formatFechaPDfdiaMesAno(e.horaEntrada),
+                                        formatFecha(e.horaEntrada),
                                     fontSize: 10,
                                     maxLines: 2,
                                     textAlign: TextAlign.center,

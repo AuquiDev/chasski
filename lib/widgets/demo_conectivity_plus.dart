@@ -131,9 +131,9 @@ Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     String messageProvider =  Provider.of<UsuarioProvider>(context).message;
     return Center(
       child: H2Text(
-        text: 'Conexión ${_connectionStatus.name.toUpperCase()}\n$messageProvider',
-        fontSize: 12,
-        color: Colors.white38,
+        text: '${_connectionStatus.name.toUpperCase()}\n$messageProvider',
+        fontSize: 14,
+        color: Color(0xFF15A405),
         maxLines: 2,
         textAlign: TextAlign.center,
       ),

@@ -1,14 +1,15 @@
 import 'package:chasski/models/model_t_empleado.dart';
-import 'package:chasski/pages/t_empleado_login.dart';
+import 'package:chasski/pages/t_local_storage.dart';
+import 'package:chasski/widgets/image_app_widget.dart';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:chasski/provider_cache/current_page.dart';
-import 'package:chasski/pages/homepage.dart';
 import 'package:chasski/pages/routes_pages.dart';
 import 'package:chasski/provider_cache/provider_cache.dart';
 import 'package:chasski/utils/custom_text.dart';
 import 'package:chasski/widgets/cerrar_sesion.dart';
 import 'package:chasski/widgets/offline_buton.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
 
@@ -22,9 +23,14 @@ class MenuPrincipal extends StatelessWidget {
     final currentImage =
         Provider.of<UsuarioProvider>(context).usuarioEncontrado;
     return Drawer(
+      elevation: 7,
+      shape: Border.all(color: Colors.white),
+      shadowColor: Colors.black,
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.white,
         child: SafeArea(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(3.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -32,10 +38,6 @@ class MenuPrincipal extends StatelessWidget {
               user: currentImage,
               size: 150,
             ),
-            // ImageLoginUser(
-            //   user: currentImage,
-            //   size: 50,
-            // ),
             const ButtonInicio(),
             
             const Expanded(child: ListaOpcionesphone()),
@@ -59,9 +61,9 @@ class ButtonInicio extends StatelessWidget {
     return ListTile(
       visualDensity: VisualDensity.compact,
       contentPadding: const EdgeInsets.all(0),
-      leading: const Icon(Icons.home),
+      leading: SvgPicture.asset("assets/img/home.svg", width: 25,),
       title: const H2Text(
-        text: "Principal",
+        text: "Home",
         fontWeight: FontWeight.w500,
         fontSize: 12,
       ),
@@ -69,10 +71,10 @@ class ButtonInicio extends StatelessWidget {
         final screensize = MediaQuery.of(context).size;
         if (screensize.width > 900) {
           final layoutmodel = Provider.of<LayoutModel>(context, listen: false);
-          layoutmodel.currentPage = const HomePage();
+          layoutmodel.currentPage = const LocalStoragePage(); //TODO 
         } else {
           final layoutmodel = Provider.of<LayoutModel>(context, listen: false);
-          layoutmodel.currentPage = const HomePage();
+          layoutmodel.currentPage = const LocalStoragePage();
           Navigator.pop(context);
         }
       },
@@ -88,18 +90,14 @@ class ListaOpcionesphone extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
+    return ListView.builder(
+      physics: ClampingScrollPhysics(),
         itemCount: routes.length,
-        separatorBuilder: (context, index) => const Divider(
-              height: 0,
-              thickness: 0,
-            ),
         itemBuilder: (context, index) {
           final listaRoutes = routes[index];
-          if (index == 20) {
+          if (index == 16) {
             return Column(
               children: [
-                  
                 const ListTile(
                   visualDensity: VisualDensity.compact,
                   contentPadding: EdgeInsets.symmetric(horizontal: 5),
@@ -122,7 +120,7 @@ class ListaOpcionesphone extends StatelessWidget {
                     textAlign: TextAlign.justify,
                   ),
                 ),
-                Image.asset('assets/img/sincronizacion.png'),
+                Image.asset('assets/img/sincronizacion.png',),
                 CardMenuPrincipal(listaRoutes: listaRoutes),
               ],
             );
@@ -216,23 +214,26 @@ class UserCard extends StatelessWidget {
     return Column(
       children: [
         WidgetCircularAnimator(
-            size: 65,
-            innerColor: Color(0xFFD41407),
-            outerColor: Color(0xFFED3E3E),
+            size: size,
+            innerColor: Colors.black26,
+            outerColor: Colors.grey,
             outerAnimation: Curves.elasticInOut,
+            innerIconsSize: 1,
+            outerIconsSize: 1,
             child: DelayedDisplay(
                 delay: const Duration(seconds: 1),
                 child: UserImage(user: user, size: size))),
         H2Text(
           text: user == null ? 'Visitante' : user!.nombre,
-          fontSize: 13,
-          fontWeight: FontWeight.bold,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
         ),
+
         user == null
             ? const SizedBox()
             : H2Text(
                 text: user!.rol,
-                fontSize: 12,
+                fontSize: 15,
               ),
       ],
     );
@@ -263,16 +264,3 @@ class UserImage extends StatelessWidget {
   }
 }
 
-Container imagenLogo() {
-  return Container(
-    decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        image: DecorationImage(
-          fit: BoxFit.fitHeight,
-          image: AssetImage(
-            'assets/img/logo_smallar.png',
-          ),
-        ),
-        color: Colors.black12),
-  );
-}

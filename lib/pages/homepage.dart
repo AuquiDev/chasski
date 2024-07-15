@@ -1,13 +1,11 @@
 // ignore_for_file: prefer_adjacent_string_concatenation
 
-import 'package:chasski/pages/t_asistencia_page.dart';
-import 'package:chasski/provider_cache/current_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:chasski/provider/provider_sql_detalle_grupo.dart';
 import 'package:chasski/provider/provider_sql_empelado.dart';
 import 'package:chasski/provider/provider_sql_tasitencia.dart';
 
-import 'package:chasski/utils/custom_text.dart';
 import 'package:chasski/shared%20preferences/shared_global.dart';
 import 'package:chasski/widgets/char_local_storage.dart';
 import 'package:chasski/widgets/demo_conectivity_plus.dart';

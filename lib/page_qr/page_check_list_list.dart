@@ -4,11 +4,11 @@ import 'package:chasski/page_qr/check_list_list_routes.dart';
 import 'package:chasski/provider/provider_t_list_check_list.dart';
 import 'package:chasski/utils/format_fecha.dart';
 import 'package:delayed_display/delayed_display.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart'; 
 import 'package:chasski/provider_cache/provider_cache.dart';
 import 'package:chasski/utils/custom_text.dart';
 import 'package:provider/provider.dart';
-import 'package:quickalert/quickalert.dart';
 import 'package:flutter_expanded_tile/flutter_expanded_tile.dart';
 
 class CheckListListPage extends StatefulWidget {
@@ -40,24 +40,54 @@ class _CheckListListPageState extends State<CheckListListPage> {
     _controller = ExpandedTileController(isExpanded: false);
   }
 
-  void mostrarDialogoSeleccion() {
-    QuickAlert.show(
-      context: context,
-      type: QuickAlertType.loading,
-      title: 'CHECK POINTS',
-      text:
-          'Por favor, selecciona un punto de control al que tengas permisos de acceso.',
-      confirmBtnColor: const Color(0xFF18861C),
-      cancelBtnTextStyle: TextStyle(color: Colors.blue),
-      confirmBtnText: 'Aceptar',
-      cancelBtnText: 'Aceptar',
-      showCancelBtn: true,
-      showConfirmBtn: true,
-      onCancelBtnTap: () {
-        Navigator.pop(context);
-      },
-    );
-  }
+
+void mostrarDialogoSeleccion() {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      if (Theme.of(context).platform == TargetPlatform.iOS) {
+        // Para iOS (Cupertino Dialog)
+        return CupertinoAlertDialog(
+          title: Text('CHECK POINTS'),
+          content: Text(
+            'Por favor, selecciona un punto de control al que tengas permisos de acceso.',
+          ),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text('Aceptar'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      } else {
+        // Para Android (Material Dialog)
+        return AlertDialog(
+          title: Text('CHECK POINTS'),
+          content: Text(
+            'Por favor, selecciona un punto de control al que tengas permisos de acceso.',
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cancelar'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+              child: Text('Aceptar'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      }
+    },
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -113,12 +143,12 @@ class _CheckListListPageState extends State<CheckListListPage> {
                                             Curves.easeInOut,
                                         theme: ExpandedTileThemeData(
                                           headerColor: color,
-                                          headerRadius: 14.0,
+                                          // headerRadius: 14.0,
                                           headerPadding: EdgeInsets.all(14.0),
                                           headerSplashColor: Colors.white,
                                           contentBackgroundColor: Colors.white,
                                           contentPadding: EdgeInsets.all(20.0),
-                                          contentRadius: 12.0,
+                                          // contentRadius: 12.0,
                                         ),
                                         controller: _controller,
                                         title: Column(

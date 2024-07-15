@@ -1,6 +1,9 @@
 // ignore_for_file: avoid_print
 
 
+import 'dart:async';
+import 'dart:io';
+
 import 'package:chasski/models/model_check_list_2file.dart';
 import 'package:chasski/poketbase/t_check_list_02.dart';
 import 'package:flutter/material.dart';
@@ -53,8 +56,9 @@ class TCheckList02Provider with ChangeNotifier {
   //METODOS POST
   bool isSyncing = false;
   postTAsistenciaProvider( {String? id, String? idCorredor,String? idCheckList, DateTime? fecha,
-  bool? estado, String? nombre, String? dorsal,String? fileUrl, String? detalles}) async {
-    isSyncing = true;
+  bool? estado, String? nombre, String? dorsal,String? fileUrl, String? detalles, File? fileFile, File? deslinde}) async {
+   try {
+      isSyncing = true;
     notifyListeners();
     TChekListmodel02File data = TChekListmodel02File(
         id: '',
@@ -68,15 +72,24 @@ class TCheckList02Provider with ChangeNotifier {
         detalles:detalles!
         );
 
-    await TChecklist_02.postAsistenciaPk(data);
+    await TChecklist_02.postAsistenciaPk(data: data, file: fileFile, deslinde: deslinde).timeout(const Duration(seconds: 2));
 
     await Future.delayed(const Duration(seconds: 2));
-    isSyncing = false;
+   
+   } catch (e) {
+     print('Error: $e');
+   }finally {
+     isSyncing = false;
+    //  Timer(const Duration(seconds: 4), () {
+    //     isSyncing = false;
+    //     notifyListeners();
+    //   });
     notifyListeners();
+   }
   }
 
   updateTAsistenciaProvider( {String? id, String? idCorredor,String? idCheckList, DateTime? fecha,
-  bool? estado, String? nombre, String? dorsal, String? fileUrl, String? detalles  }) async {
+  bool? estado, String? nombre, String? dorsal, String? fileUrl, String? detalles, File? fileFile, File? deslinde}) async {
     isSyncing = true;
     notifyListeners();
     TChekListmodel02File data = TChekListmodel02File(
@@ -90,7 +103,7 @@ class TCheckList02Provider with ChangeNotifier {
         fileUrl: fileUrl!, 
         detalles:detalles!);
 
-    await TChecklist_02.putAsitneciaPk(id: id, data: data);
+    await TChecklist_02.putAsitneciaPk(id: id, data: data, imagen: fileFile,  deslinde: deslinde);
 
     await Future.delayed(const Duration(seconds: 2));
     isSyncing = false;
@@ -102,10 +115,10 @@ class TCheckList02Provider with ChangeNotifier {
     notifyListeners();
   }
   //METODO PARA POST O UPDATE
-  Future<void> saveProductosApp(TChekListmodel02File e) async {
+  Future<void> saveProductosApp({TChekListmodel02File? e, File? fileFile, File? deslinde}) async {
     isSyncing = true;
     notifyListeners();
-    if (e.id!.isEmpty) {
+    if (e!.id!.isEmpty) {
       await postTAsistenciaProvider(
         id: '',
         idCorredor: e.idCorredor,
@@ -115,7 +128,10 @@ class TCheckList02Provider with ChangeNotifier {
         nombre: e.nombre,
         dorsal: e.dorsal,
         fileUrl: e.fileUrl,
-        detalles: e.detalles
+        detalles: e.detalles, 
+        //EXTRA
+        fileFile: fileFile, 
+        deslinde: deslinde
       );
       print('POST ASISTENCIA API ${e.nombre} ${e.id}');
     } else {
@@ -128,7 +144,10 @@ class TCheckList02Provider with ChangeNotifier {
         nombre: e.nombre,
         dorsal: e.dorsal,
         fileUrl: e.fileUrl,
-        detalles: e.detalles
+        detalles: e.detalles, 
+        //EXTRA
+        fileFile: fileFile,
+        deslinde: deslinde
       );
       print('PUT ASISTENCIA API ${e.nombre} ${e.id}');
     }

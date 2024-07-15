@@ -241,7 +241,7 @@ class DBRunnersAppProvider with ChangeNotifier {
 
     final dataProvider =
         Provider.of<TRunnersProvider>(context, listen: false);
-    List<TRunnersModel> listaApi = dataProvider.listAsistencia;
+    List<TRunnersModel> listaApi = dataProvider.listaRunner;
     offlineSync = true;
     notifyListeners();
 

@@ -107,7 +107,7 @@ class TDetalleTrabajoProvider with ChangeNotifier {
   }
 
   Future<void> realtime() async {
-    await pb.collection('detalleTrabajos_empleados').subscribe('*', (e) {
+    await apu.collection('detalleTrabajos_empleados').subscribe('*', (e) {
       print('REALTIME Trabajo ${e.action}');
 
       switch (e.action) {

@@ -38,9 +38,13 @@ import 'package:chasski/provider/provider_t_checkp_ar_06.dart';
 import 'package:chasski/provider/provider_t_checkp_ar_07.dart';
 import 'package:chasski/provider/provider_t_checkp_ar_08.dart';
 import 'package:chasski/provider/provider_t_checkp_ar_09.dart';
+import 'package:chasski/provider/provider_t_distancias_ar.dart';
+import 'package:chasski/provider/provider_t_evento_ar.dart';
 import 'package:chasski/provider/provider_t_list_check_list.dart';
 import 'package:chasski/provider/provider_t_list_check_points.dart';
 import 'package:chasski/provider/provider_t_runners_ar.dart';
+import 'package:chasski/provider_cache/provider_runner.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:chasski/provider_cache/current_page.dart';
@@ -55,8 +59,16 @@ import 'package:chasski/zplashScreen/welcome_page.dart';
 import 'package:chasski/shared%20preferences/shared_global.dart';
 import 'package:provider/provider.dart';
 
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+
 void main() async {
+  //INICALIZAR FECHA Y HORA:
+  tz.initializeTimeZones();
+  tz.setLocalLocation(tz.getLocation('America/Lima'));
+
   WidgetsFlutterBinding.ensureInitialized();
+
   SharedPrefencesGlobal prefs = SharedPrefencesGlobal();
   await prefs.initSharedPreferecnes();
   // Bloquear la rotación de la pantalla en toda la aplicación
@@ -64,7 +76,11 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  runApp(const AppState());
+  //FIREBASE
+  // WidgetsFlutterBinding.ensureInitialized();
+  // Firebase.initializeApp().then((value) {
+  //   runApp(const AppState());
+  // });
 }
 
 class AppState extends StatelessWidget {
@@ -89,9 +105,25 @@ class AppState extends StatelessWidget {
           create: (context) => UsuarioProvider(),
           lazy: false,
         ),
+        //RUNNER CACHE
+        ChangeNotifierProvider(
+          create: (context) => RunnerProvider(),
+          lazy: false,
+        ),
+
         // TABLA EMPLEADO
         ChangeNotifierProvider(
           create: (context) => TEmpleadoProvider(),
+          lazy: false,
+        ),
+        //PRUEBA DISTANCIAS 10K
+        ChangeNotifierProvider(
+          create: (context) => TDistanciasArProvider(),
+          lazy: false,
+        ),
+        //PRUEBA EVENTO
+        ChangeNotifierProvider(
+          create: (context) => TEventoArProvider(),
           lazy: false,
         ),
         // TABLA ASISTENCIA
@@ -114,7 +146,7 @@ class AppState extends StatelessWidget {
           create: (context) => DBEMpleadoProvider(),
           lazy: false,
         ),
-        
+
         //LISTCHECK LIST SIN OFFLINE
         ChangeNotifierProvider(
           create: (context) => TListCheckListProvider(),
@@ -137,13 +169,13 @@ class AppState extends StatelessWidget {
           lazy: false,
         ),
 
-        //RUNNERS 
+        //RUNNERS
         ChangeNotifierProvider(
           create: (context) => TRunnersProvider(),
           lazy: false,
         ),
-        
-         //CHECK LIST 01
+
+        //CHECK LIST 01
         ChangeNotifierProvider(
           create: (context) => TCheckList01Provider(),
           lazy: false,
@@ -153,78 +185,75 @@ class AppState extends StatelessWidget {
           create: (context) => TCheckList02Provider(),
           lazy: false,
         ),
-         //CHECK LIST 03
+        //CHECK LIST 03
         ChangeNotifierProvider(
           create: (context) => TCheckList03Provider(),
           lazy: false,
         ),
-         //CHECK LIST 04
+        //CHECK LIST 04
         ChangeNotifierProvider(
           create: (context) => TCheckList04Provider(),
           lazy: false,
         ),
-         //CHECK LIST 05
+        //CHECK LIST 05
         ChangeNotifierProvider(
           create: (context) => TCheckList05Provider(),
           lazy: false,
         ),
-          //CHECK LIST 06
+        //CHECK LIST 06
         ChangeNotifierProvider(
           create: (context) => TCheckList06Provider(),
           lazy: false,
         ),
 
-         //CHECK LIST 07
+        //CHECK LIST 07
         ChangeNotifierProvider(
           create: (context) => TCheckList07Provider(),
           lazy: false,
         ),
-         //CHECK LIST 08
+        //CHECK LIST 08
         ChangeNotifierProvider(
           create: (context) => TCheckList08Provider(),
           lazy: false,
         ),
 
-
-
-
-         //CHECK POINTS 00 
+        //CHECK POINTS 00
         ChangeNotifierProvider(
           create: (context) => TCheckP00Provider(),
           lazy: false,
         ),
-         //SQL CHECK POINTS 00 
+        //SQL CHECK POINTS 00
         ChangeNotifierProvider(
           create: (context) => DBCheckPointsAppProviderAr00(),
           lazy: false,
         ),
-        //CHECK POINTS 01 
+        //CHECK POINTS 01
         ChangeNotifierProvider(
           create: (context) => TCheckP01Provider(),
           lazy: false,
         ),
-         //SQL CHECK POINTS 01
+        //SQL CHECK POINTS 01
         ChangeNotifierProvider(
           create: (context) => DBCheckPointsAppProviderAr01(),
           lazy: false,
         ),
-         //CHECK POINTS 02
+        //CHECK POINTS 02
         ChangeNotifierProvider(
           create: (context) => TCheckP02Provider(),
           lazy: false,
         ),
-         //SQL CHECK POINTS 02
+        //SQL CHECK POINTS 02
         ChangeNotifierProvider(
           create: (context) => DBCheckPointsAppProviderAr02(),
           lazy: false,
         ),
 
-         //CHECK POINTS 03
+        //CHECK POINTS 03
         ChangeNotifierProvider(
           create: (context) => TCheckP03Provider(),
           lazy: false,
         ),
-         //SQL CHECK POINTS 03
+        //SQL CHECK POINTS 03
         ChangeNotifierProvider(
           create: (context) => DBCheckPointsAppProviderAr03(),
           lazy: false,
@@ -235,7 +264,7 @@ class AppState extends StatelessWidget {
           create: (context) => TCheckP04Provider(),
           lazy: false,
         ),
-         //SQL CHECK POINTS 04
+        //SQL CHECK POINTS 04
         ChangeNotifierProvider(
           create: (context) => DBCheckPointsAppProviderAr04(),
           lazy: false,
@@ -246,7 +275,7 @@ class AppState extends StatelessWidget {
           create: (context) => TCheckP05Provider(),
           lazy: false,
         ),
-         //SQL CHECK POINTS 05
+        //SQL CHECK POINTS 05
         ChangeNotifierProvider(
           create: (context) => DBCheckPointsAppProviderAr05(),
           lazy: false,
@@ -257,7 +286,7 @@ class AppState extends StatelessWidget {
           create: (context) => TCheckP06Provider(),
           lazy: false,
         ),
-         //SQL CHECK POINTS 06
+        //SQL CHECK POINTS 06
         ChangeNotifierProvider(
           create: (context) => DBCheckPointsAppProviderAr06(),
           lazy: false,
@@ -268,40 +297,40 @@ class AppState extends StatelessWidget {
           create: (context) => TCheckP07Provider(),
           lazy: false,
         ),
-         //SQL CHECK POINTS 07
+        //SQL CHECK POINTS 07
         ChangeNotifierProvider(
           create: (context) => DBCheckPointsAppProviderAr07(),
           lazy: false,
         ),
 
-         //CHECK POINTS 08
+        //CHECK POINTS 08
         ChangeNotifierProvider(
           create: (context) => TCheckP08Provider(),
           lazy: false,
         ),
-         //SQL CHECK POINTS 08
+        //SQL CHECK POINTS 08
         ChangeNotifierProvider(
           create: (context) => DBCheckPointsAppProviderAr08(),
           lazy: false,
         ),
 
-         //CHECK POINTS 09
+        //CHECK POINTS 09
         ChangeNotifierProvider(
           create: (context) => TCheckP09Provider(),
           lazy: false,
         ),
-         //SQL CHECK POINTS 09
+        //SQL CHECK POINTS 09
         ChangeNotifierProvider(
           create: (context) => DBCheckPointsAppProviderAr09(),
           lazy: false,
         ),
 
-         //CHECK POINTS 010
+        //CHECK POINTS 010
         ChangeNotifierProvider(
           create: (context) => TCheckP010Provider(),
           lazy: false,
         ),
-         //SQL CHECK POINTS 010
+        //SQL CHECK POINTS 010
         ChangeNotifierProvider(
           create: (context) => DBCheckPointsAppProviderAr010(),
           lazy: false,
@@ -312,18 +341,18 @@ class AppState extends StatelessWidget {
           create: (context) => TCheckP011Provider(),
           lazy: false,
         ),
-         //SQL CHECK POINTS 011
+        //SQL CHECK POINTS 011
         ChangeNotifierProvider(
           create: (context) => DBCheckPointsAppProviderAr011(),
           lazy: false,
         ),
 
-         //CHECK POINTS 012
+        //CHECK POINTS 012
         ChangeNotifierProvider(
           create: (context) => TCheckP012Provider(),
           lazy: false,
         ),
-         //SQL CHECK POINTS 012
+        //SQL CHECK POINTS 012
         ChangeNotifierProvider(
           create: (context) => DBCheckPointsAppProviderAr012(),
           lazy: false,
@@ -334,7 +363,7 @@ class AppState extends StatelessWidget {
           create: (context) => TCheckP013Provider(),
           lazy: false,
         ),
-         //SQL CHECK POINTS 013
+        //SQL CHECK POINTS 013
         ChangeNotifierProvider(
           create: (context) => DBCheckPointsAppProviderAr013(),
           lazy: false,
@@ -345,12 +374,11 @@ class AppState extends StatelessWidget {
           create: (context) => TCheckP020METAProvider(),
           lazy: false,
         ),
-         //SQL CHECK POINTS 0META
+        //SQL CHECK POINTS 0META
         ChangeNotifierProvider(
           create: (context) => DBCheckPointsAppProviderAr0META(),
           lazy: false,
         ),
-
       ],
       builder: (context, _) {
         return const MyApp();
@@ -358,8 +386,6 @@ class AppState extends StatelessWidget {
     );
   }
 }
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

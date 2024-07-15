@@ -18,6 +18,7 @@ class TRunnersModel {
     String genero;
     int numeroDeDocumentos;
     String tallaDePolo;
+     String? imagen;
 
     TRunnersModel({
         this.idsql,
@@ -38,6 +39,7 @@ class TRunnersModel {
         required this.genero,
         required this.numeroDeDocumentos,
         required this.tallaDePolo,
+        this.imagen,
     });
 
     factory TRunnersModel.fromJson(Map<String, dynamic> json) => TRunnersModel(
@@ -57,6 +59,7 @@ class TRunnersModel {
         genero: json["genero"],
         numeroDeDocumentos: json["numeroDeDocumentos"],
         tallaDePolo: json["tallaDePolo"],
+        imagen: json["imagen"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -76,5 +79,25 @@ class TRunnersModel {
         "genero": genero,
         "numeroDeDocumentos": numeroDeDocumentos,
         "tallaDePolo": tallaDePolo,
+        // "imagen": imagen,
     };
 }
+
+
+
+
+
+//DEFAULT RUNNER
+TRunnersModel defaultRunner() {
+    return TRunnersModel(
+    idEvento: 'idEvento', 
+    idDistancia: 'idDistancia', 
+    nombre: 'nombre', 
+    apellidos: 'apellidos', 
+    dorsal: 'dorsal', pais: 'pais', 
+    telefono: 'telefono', 
+    estado: true, 
+    genero: 'genero', 
+    numeroDeDocumentos: 0, 
+    tallaDePolo: 'tallaDePolo');
+  }

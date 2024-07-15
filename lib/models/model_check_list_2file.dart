@@ -12,13 +12,15 @@ class TChekListmodel02File {
 
     String idCorredor;
     String idCheckList;
-    String? file;
+    
     String fileUrl;
     DateTime fecha;
     bool estado;
     String detalles;
     String nombre;
     String dorsal;
+    String? file;
+    String? deslinde;
 
     TChekListmodel02File({
          this.idsql,
@@ -31,6 +33,7 @@ class TChekListmodel02File {
         required this.idCorredor,
         required this.idCheckList,
          this.file,
+         this.deslinde,
         required this.fileUrl,
         required this.fecha,
         required this.estado,
@@ -47,7 +50,8 @@ class TChekListmodel02File {
         updated: (json["updated"]),
         idCorredor: json["id_corredor"],
         idCheckList: json["id_check_list"],
-        // file: (json["file"]) ?? '',
+        file: (json["file"]).toString() ?? '',
+        deslinde: json["deslinde"] ?? '',
         fileUrl: json["file_url"],
         fecha: parseDateTime(json["fecha"]),
         estado: json["estado"],
@@ -65,6 +69,7 @@ class TChekListmodel02File {
         "id_corredor": idCorredor,
         "id_check_list": idCheckList,
         "file": (file),
+        "deslinde": deslinde,
         "file_url": fileUrl,
         "fecha": fecha.toIso8601String(),
         "estado": estado,
@@ -73,3 +78,15 @@ class TChekListmodel02File {
         "dorsal": dorsal,
     };
 }
+
+TChekListmodel02File chekListDocDefault() {
+    return TChekListmodel02File(
+        idCorredor: 'idCorredor', 
+        idCheckList: 'idCheckList', 
+        fileUrl: '', 
+        fecha: DateTime.now(), 
+        estado: true, 
+        detalles: 'detalles', 
+        nombre: 'nombre', 
+        dorsal: 'dorsal');
+  }

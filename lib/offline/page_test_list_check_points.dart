@@ -310,7 +310,7 @@ class CardAsistencia extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           H2Text(
-            text: formatFechaPDfdiaMesAno(e.horaApertura),
+            text: formatFecha(e.horaApertura),
             fontSize: 10,
             maxLines: 2,
             textAlign: TextAlign.center,

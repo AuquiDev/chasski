@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:chasski/api/path_key_api.dart';
 import 'package:chasski/models/model_list_check_list_ar.dart';
 import 'package:pocketbase/pocketbase.dart';
@@ -14,7 +16,10 @@ class TListCheckList_AR {
 
   static  postAsistenciaPk(TListChekListModel data) async {
     final record =
-        await pb.collection('ar_check_list').create(body: data.toJson());
+        await pb.collection('ar_check_list').create(
+          body: data.toJson(), 
+          
+          );
 
     return record;
   }

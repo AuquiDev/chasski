@@ -6,7 +6,7 @@ import 'package:pocketbase/pocketbase.dart';
 
 class TDetalleTrabajo {
   static getDetalleTrabajoPk() async {
-    final records = await pb.collection('detalleTrabajos_empleados').getFullList(
+    final records = await apu.collection('detalleTrabajos_empleados').getFullList(
           sort: '-created',
         );
     // print(records);
@@ -15,23 +15,23 @@ class TDetalleTrabajo {
 
   static  postDetalleTrabajoApp(TDetalleTrabajoModel data) async {
     final record =
-        await pb.collection('detalleTrabajos_empleados').create(body: data.toJson());
+        await apu.collection('detalleTrabajos_empleados').create(body: data.toJson());
 
     return record;
   }
 
   static  putDetalleTrabajoApp({String? id, TDetalleTrabajoModel? data}) async {
     final record =
-        await pb.collection('detalleTrabajos_empleados').update(id!, body: data!.toJson());
+        await apu.collection('detalleTrabajos_empleados').update(id!, body: data!.toJson());
     return record;
   }
 
   static Future  deleteDetalleTrabajoApp(String id) async {
-    final record = await pb.collection('detalleTrabajos_empleados').delete(id);
+    final record = await apu.collection('detalleTrabajos_empleados').delete(id);
     return record;
   }
 
   static Future<RealtimeService> realmTimePocket() async {
-    return pb.realtime;
+    return apu.realtime;
   }
 }

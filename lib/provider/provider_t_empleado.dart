@@ -60,7 +60,7 @@ class TEmpleadoProvider with ChangeNotifier {
   postEmpleadoProvider(
       {String? id,
       bool? estado,
-      String? idRolesSueldoEmpleados,
+      String? idRolesSueldoEmpleados, 
       String? nombre,
       String? apellidoPaterno,
       String? apellidoMaterno,

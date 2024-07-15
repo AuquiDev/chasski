@@ -69,7 +69,7 @@ class _DBRunnerspageState extends State<DBRunnerspage> {
     bool issaving = dbProducto.offlineSaving;
 
     final dataProvider = Provider.of<TRunnersProvider>(context);
-    final listaDatos = dataProvider.listAsistencia;
+    final listaDatos = dataProvider.listaRunner;
 
     return Scaffold(
       body: SafeArea(
@@ -281,7 +281,7 @@ class CardDetalleTrabajo extends StatelessWidget {
         fontWeight: FontWeight.w600,
       ),
       subtitle: H2Text(
-        text: 'ROL: ${e.dorsal}',
+        text: 'ROL: ${e.dorsal}  -- ${e.numeroDeDocumentos}',
         fontSize: 12,
         fontWeight: FontWeight.w600,
         color: Colors.brown,

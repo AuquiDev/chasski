@@ -1,4 +1,5 @@
 
+import 'package:chasski/widgets/color_custom.dart';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -37,6 +38,7 @@ class _WebPageState extends State<WebPage> {
   Widget build(BuildContext context) {
     final layoutmodel = Provider.of<LayoutModel>(context);
     return Scaffold(
+      backgroundColor: CustomColors.lightIndigo,
       // appBar: AppBar(
       //   elevation: 0,
       //   title: const TextAppBar(),
@@ -80,6 +82,7 @@ class TextAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return DelayedDisplay(
                 delay: const Duration(milliseconds: 4000),
-      child: Image.asset('assets/img/logo_andes_race.png', height: 45,));
+      //TODO : debe cambiar en base a tipo de evento. 
+      child: Image.asset('assets/img/logo_ar_red.png', height: 45,color: CustomColors.black,));
   }
 }

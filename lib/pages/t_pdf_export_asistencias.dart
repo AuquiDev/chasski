@@ -170,7 +170,7 @@ class _PDFExportAsistenciaState extends State<PDFExportAsistencia> {
                                       padding: edgeInsets,
                                       width: 100,
                                       child: pw.Text(
-                                        formatFechaPDfdiaMesAno(e.horaEntrada),
+                                        formatFecha(e.horaEntrada),
                                        style: tableTextStyle(),
                                       )),
                                   pw.Container(
