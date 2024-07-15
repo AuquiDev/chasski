@@ -40,7 +40,7 @@ class TRunnersProvider with ChangeNotifier {
   void deleteTAsistencia(TRunnersModel e) {
     listaRunner.removeWhere((x) => x.id == e.id);
     notifyListeners();
-  }
+  } 
 
   getTAsistenciaApp() async {
     List<RecordModel> response = await TRunners.getAsitenciaPk();
@@ -90,9 +90,9 @@ class TRunnersProvider with ChangeNotifier {
       tallaDePolo: tallaDePolo!,
         );
 
-    await TRunners.postAsistenciaPk(data, );
+    await TRunners.postAsistenciaPk(data, ).timeout(Duration(seconds: 5));
 
-    await Future.delayed(const Duration(seconds: 2));
+    // await Future.delayed(const Duration(seconds: 2));
     isSyncing = false;
     notifyListeners();
   }
@@ -127,9 +127,10 @@ class TRunnersProvider with ChangeNotifier {
       numeroDeDocumentos: numeroDeDocumentos!,
       tallaDePolo: tallaDePolo!,);
 
-    await TRunners.putAsitneciaPk(id: id, data: data,imagen:imagenFile );
+    await TRunners.putAsitneciaPk(id: id, data: data,
+    imagen:imagenFile ).timeout(Duration(seconds: 5));
 
-    await Future.delayed(const Duration(seconds: 2));
+    // await Future.delayed(const Duration(seconds: 2));
     isSyncing = false;
     notifyListeners();
   }

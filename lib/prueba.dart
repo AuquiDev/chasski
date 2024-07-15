@@ -1,663 +1,248 @@
 
-import 'dart:io';
+//   bool islogin = false;
 
-import 'package:chasski/models/model_check_list_2file.dart';
-import 'package:chasski/models/model_list_check_list_ar.dart';
-import 'package:chasski/models/model_runners_ar.dart';
-import 'package:chasski/provider/provider_t_checklist_02.dart';
-import 'package:chasski/provider/provider_t_list_check_list.dart';
-import 'package:chasski/provider_cache/provider_runner.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:provider/provider.dart';
+// void playSound() async {
+//     AudioPlayer audioPlayer = AudioPlayer();
+//     await audioPlayer.play(AssetSource('song/gota.mp3')); // Ruta a tu archivo de sonido
+//   }
+//   //Metodo de Autentificacion
+//   Future<bool> login({ BuildContext? context, int? cedulaDNI,
+//   // String? idUsuario
+//   }) async {
+//     islogin = true;
+//     notifyListeners();
+//     // ignore: unused_local_variable
+//     int userindex = -1;
+//     try {
+//       //CONDICIONALOFFLINE aumentamos este codigo para asignar el valor de la listausuarios en modo offline.
+//       // bool isOffline =   Provider.of<UsuarioProvider>(context!, listen: false).isOffline;
 
-class DocumentPage extends StatefulWidget {
-  const DocumentPage({
-    super.key,
-  });
+//       // final listaRunnerSQL = Provider.of<DBRunnersAppProvider>(context, listen: false).listsql;
 
-  @override
-  State<DocumentPage> createState() => _DocumentPageState();
-}
+//       // listaRunner = isOffline ? listaRunnerSQL : listaRunner;
+//       //Esta bsuqueda devulece un umeor, si el numero estabne en leindex es decir de 0 a mas , si es menor de 0 el usuairo n oexiste.
+//       userindex = listaRunner.indexWhere((e) {
 
-class _DocumentPageState extends State<DocumentPage> {
-  File? selectedFile;
-
-  @override
-  Widget build(BuildContext context) {
-    TRunnersModel? user =
-        Provider.of<RunnerProvider>(context).usuarioEncontrado;
-
-    //LISTA de CHECKLIST
-    final checListProvider = Provider.of<TListCheckListProvider>(context);
-    List<TListChekListModel> listcheckL = checListProvider.listAsistencia;
-
-    //IDCHECK LIST - Encontramos el check list,
-    TListChekListModel check = listcheckL.firstWhere(
-        (e) => e.id == 'vjyalwfxxtga6rr',
-        orElse: () => checkListDefault());
-
-    //COCUMENTOS CHECK POINTS
-    final docProvider = Provider.of<TCheckList02Provider>(context);
-    //SI el USURIO ESTA REGISTRADO
-    TChekListmodel02File docUser = docProvider.listAsistencia
-        .firstWhere((doc) => doc.idCorredor == user!.id!, 
-        orElse: () => chekListDocDefault());
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Edit Profile'),
-      ),
-      body: Column(
-        children: [
-          Center(
-            child: Text(check.nombre),
-          ),
-
-          // Widget para previsualizar el archivo seleccionado
-          selectedFile != null
-              ? GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            PDFViewerPage(file: selectedFile!),
-                      ),
-                    );
-                  },
-                  child: Text(
-                    'Archivo seleccionado: ${selectedFile!.path}',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                )
-              : const SizedBox.shrink(),
-
-          IconButton(
-            onPressed: () async {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: Text('Seleccionar fuente de archivo'),
-                    content: SingleChildScrollView(
-                      child: ListBody(
-                        children: [
-                          ListTile(
-                            leading: Icon(Icons.picture_as_pdf),
-                            title: Text('Seleccionar PDF'),
-                            onTap: () async {
-                              Navigator.of(context).pop();
-                              FilePickerResult? result =
-                                  await FilePicker.platform.pickFiles(
-                                type: FileType.custom,
-                                allowedExtensions: ['pdf'],
-                              );
-                              if (result == null) {
-                                print('No se seleccionó ningún archivo');
-                              } else {
-                                print(
-                                    'Archivo seleccionado: ${result.files.single.path}');
-                                setState(() {
-                                  selectedFile =
-                                      File(result.files.single.path!);
-                                });
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              );
-            },
-            icon: Icon(Icons.attach_file),
-          ),
-
-          if (selectedFile != null)
-            ElevatedButton(
-              onPressed: docProvider.isSyncing
-                  ? null
-                  : () async {
-                    print(docUser.id);
-                      TChekListmodel02File dataDoc = TChekListmodel02File(
-                        id: (docUser.id == null) ? '' : docUser.id,
-                        idCorredor: user!.id!,
-                        idCheckList: check.id!,
-                        fileUrl: 'https://pub.dev/packages/flutter_pdfview',
-                        fecha: DateTime.now(),
-                        estado: true,
-                        detalles: 'Nuevos comentario Inka Challenge',
-                        nombre: user.nombre,
-                        dorsal: user.dorsal,
-                      );
-                      await docProvider.saveProductosApp(
-                          e: dataDoc, fileFile: selectedFile);
-                    },
-              child: docProvider.isSyncing
-                  ? CircularProgressIndicator()
-                  : Text('Enviar'),
-            ),
-        ],
-      ),
-    );
-  }
-
-  
-}
-
-class PDFViewerPage extends StatelessWidget {
-  final File file;
-
-  const PDFViewerPage({required this.file});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Vista previa del PDF'),
-      ),
-      body: PDFView(
-        filePath: file.path,
-      ),
-    );
-  }
-}
-
-
-// import 'dart:io';
-
-// import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
-// import 'package:open_filex/open_filex.dart';
-// import 'package:path_provider/path_provider.dart';
-// import 'package:pdf/pdf.dart';
-// import 'package:pdf/widgets.dart' as pw;
-
-// class PDFExportDeslinde extends StatefulWidget {
-//   @override
-//   State<PDFExportDeslinde> createState() => _PDFExportDeslindeState();
-// }
-
-// class _PDFExportDeslindeState extends State<PDFExportDeslinde> {
-//   bool isSaving = false;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return isSaving
-//         ? const SizedBox(
-//             width: 30,
-//             height: 30,
-//             child: CircularProgressIndicator(
-//               strokeWidth: 3,
-//             ))
-//         : IconButton(
-//             icon: const Icon(
-//               Icons.print_rounded,
-//               size: 30,
-//             ),
-//             onPressed: () async {
-//               setState(() {
-//                 isSaving = true;
-//               });
-//               // Simulación de guardado con un retraso de 2 segundos
-//               await Future.delayed(const Duration(seconds: 2));
-
-//               //PDF Generate
-//               ByteData byteData =
-//                   await rootBundle.load('assets/img/logo_small.png');
-//               Uint8List imagenBytes = byteData.buffer.asUint8List();
-//               const grisbordertable =
-//                   PdfColor.fromInt(0xFFACA7A7); // Gris oscuro
-
-//               pw.Document pdf = pw.Document();
-
-//               //PAGINA lista de compras
-//               pdf.addPage(pw.MultiPage(
-//                 margin: const pw.EdgeInsets.all(20),
-//                 maxPages: 200,
-//                 pageFormat: PdfPageFormat.a4.copyWith(
-//                     marginTop: 0, marginBottom: 30), // Aplica los márgenes
-//                 build: (pw.Context context) {
-//                   var textStyle = pw.TextStyle(
-//                       fontWeight: pw.FontWeight.bold, fontSize: 10);
-//                   const edgeInsets =
-//                       pw.EdgeInsets.symmetric(horizontal: 5, vertical: 2);
-//                   return [
-//                     pw.Column(
-//                       children: [
-//                         titlePages(imagenBytes),
-//                         pw.Table(
-//                           border: pw.TableBorder.all(color: grisbordertable),
-//                           children: [
-//                             pw.TableRow(
-//                               children: [
-//                                 pw.Center(
-//                                     child: pw.Text('#', style: textStyle)),
-//                                 pw.Center(
-//                                     child:
-//                                         pw.Text('PERSONAL', style: textStyle)),
-//                                 pw.Center(
-//                                     child: pw.Text('ROL', style: textStyle)),
-//                                 pw.Center(
-//                                     child: pw.Text('GRUPO', style: textStyle)),
-//                                 pw.Center(
-//                                   child: pw.Text('FECHA',
-//                                       style: textStyle,
-//                                       textAlign: pw.TextAlign.center),
-//                                 ),
-//                                 pw.Center(
-//                                   child: pw.Text('ENTRADA',
-//                                       style: textStyle,
-//                                       textAlign: pw.TextAlign.center),
-//                                 ),
-//                                 pw.Center(
-//                                   child: pw.Text('SALIDA',
-//                                       style: textStyle,
-//                                       textAlign: pw.TextAlign.center),
-//                                 ),
-//                                 // pw.Center(child: pw.Text('Detalles', style: textStyle,textAlign: pw.TextAlign.center),),
-//                               ],
-//                             ),
-
-// // Azul
-//                           ],
-//                         )
-//                       ],
-//                     ),
-//                   ];
-//                 },
-
-//                 footer: (context) {
-//                   return fooTerPDF();
-//                 },
-//               ));
-
-//               Uint8List bytes = await pdf.save();
-//               Directory directory = await getApplicationDocumentsDirectory();
-//               File filePdf = File("${directory.path}/asistencias ${23}.pdf");
-//               filePdf.writeAsBytes(bytes);
-//               OpenFilex.open(filePdf.path);
-//               // print(directory.path);
-//               // print(bytes);
-//               // Mostrar un mensaje de éxito
-//               ScaffoldMessenger.of(context).showSnackBar(
-//                 const SnackBar(
-//                   content: Text('Archivo PDF exportado con éxito'),
-//                 ),
-//               );
-//               setState(() {
-//                 isSaving = false;
-//               });
-//             },
+//         bool ismath = (
+//           e.numeroDeDocumentos.toString().toLowerCase() ==
+//           cedulaDNI.toString().toLowerCase()
+//           // &&  e.telefono == idUsuario
 //           );
+
+//         if (ismath) {
+//           // Si se encuentra el usuario, establecerlo en UsuarioProvider
+//           Provider.of<RunnerProvider>(context!, listen: false)  .setusuarioLogin(e);
+//           // Guardar la información del usuario en SharedPreferences
+//           SharedPrefencesGlobal().saveIDEvento(e.idEvento!);
+//           SharedPrefencesGlobal().saveIDDistancia(e.idDistancia!);///
+//           SharedPrefencesGlobal().saveID(e.id!);
+//           SharedPrefencesGlobal().saveNombreRun(e.nombre!);
+//           SharedPrefencesGlobal().saveApellidos(e.apellidos);
+//           SharedPrefencesGlobal().saveDorsal(e.dorsal!);
+//           SharedPrefencesGlobal().savePais(e.pais);
+//           SharedPrefencesGlobal().saveTallaPolo(e.tallaDePolo);
+
+//           SharedPrefencesGlobal().saveImageRun(e.imagen!);
+//           SharedPrefencesGlobal().saveCollectionID(e.collectionId!);
+//         }
+//         return ismath;
+//       });
+
+//       //Hacer un sonido si el usuario ha sido en contrado
+//       if (userindex != -1) {
+//         playSound();
+//       }
+//     } catch (e) {
+//       userindex = -1;
+
+//     }
+
+//     // Simular una carga con un temporizador
+//     await Future.delayed(const Duration(seconds: 2));
+
+//     // Lógica de navegación o mensaje de error
+//     if (userindex != -1) {
+//         print('ESTATE IF: $islogin');
+//       islogin = true;
+//       notifyListeners();
+//       // Configurar un temporizador para cambiar islogin a false después de 2 segundos
+//       Timer(const Duration(seconds: 4), () {
+//         islogin = false;
+//         notifyListeners();
+//       });
+//       return islogin;
+//     } else {
+//       print('ESTATE ELSE: $islogin - $userindex');
+//       islogin = false;
+//       notifyListeners();
+//       return islogin;
+//     }
 //   }
 
-//   pw.TextStyle tableTextStyle() {
-//     return pw.TextStyle(
-//       fontSize: 8,
-//       fontWeight: pw.FontWeight.normal,
-//     );
-//   }
 
-//   pw.Container fooTerPDF() {
-//     const marronColor = PdfColor.fromInt(0xFF663300); // Marrón
-//     return pw.Container(
-//       alignment: pw.Alignment.center,
-//       // margin: const pw.EdgeInsets.only(top: 10),
-//       child: pw.Column(
-//         children: [
-//           pw.Divider(
-//               color: marronColor, thickness: 3, height: 10), // Línea divisoria
-//           // pw.SizedBox(height: 10),
-//           pw.Text(
-//             'Con el corazón en las montañas, construimos experiencias únicas para el mundo.',
-//             style: const pw.TextStyle(
-//                 fontSize: 9,
-//                 color: marronColor), // Color gris oscuro personalizado
-//           ),
-//         ],
-//       ),
-//     );
-//   }
 
-//   pw.Widget titlePages(Uint8List imagenBytes) {
-//     const marronColor = PdfColor.fromInt(0xFF2E1C09); // Marrón
-//     return pw.Container(
-//       alignment: pw.Alignment.center,
-//       margin: const pw.EdgeInsets.only(bottom: 10),
-//       child: pw.Row(
-//         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-//         children: [
-//           pw.Row(children: [
-//             pw.Container(
-//               margin: const pw.EdgeInsets.symmetric(horizontal: 5),
-//               width: 8, // Ancho muy pequeño para simular un divisor vertical
-//               height: 40, // Altura igual a la altura de la imagen
-//               color: marronColor, // Color marrón
-//             ),
-//             pw.Column(
-//               crossAxisAlignment: pw.CrossAxisAlignment.start,
-//               children: [
-//                 pw.Text(
-//                   'REPORTE DE ASISTENCIAS',
-//                   style: pw.TextStyle(
-//                     fontSize: 13,
-//                     fontWeight: pw.FontWeight.bold,
-//                     color: marronColor,
-//                   ),
-//                 ),
-//                 pw.Text(
-//                   'CÓDIGO: }',
-//                   style: pw.TextStyle(
-//                     fontSize: 11,
-//                     fontWeight: pw.FontWeight.bold,
-//                     color: marronColor,
-//                   ),
-//                 ),
-//                 pw.Text(
-//                   '[  registros ]',
-//                   style: const pw.TextStyle(
-//                     fontSize: 9,
-//                     color: marronColor,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ]),
-//           pw.Container(
-//             width: 130,
-//             child: pw.Column(
-//               children: [
-//                 pw.Image(
-//                   pw.MemoryImage(imagenBytes),
-//                 ),
-//                 pw.Text('Área de Operaciones y Logística',
-//                     style: pw.TextStyle(
-//                       fontSize: 8, // Tamaño de fuente personalizable
-//                       fontWeight: pw.FontWeight.bold,
-//                     ),
-//                     textAlign: pw.TextAlign.center),
-//                 pw.Text(
-//                   DateTime.now().toString(),
-//                   style: const pw.TextStyle(
-//                     fontSize: 6,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
 
-// import 'dart:io';
-// import 'dart:typed_data';
 
-// import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
-// import 'package:open_filex/open_filex.dart';
-// import 'package:path_provider/path_provider.dart';
-// import 'package:pdf/pdf.dart';
-// import 'package:pdf/widgets.dart' as pw;
-// import 'package:signature/signature.dart';
 
-// class PDFExportDeslinde extends StatefulWidget {
-//   @override
-//   State<PDFExportDeslinde> createState() => _PDFExportDeslindeState();
-// }
+  // bool isSyn = false;
+  // Future<void> sincServer(
+  //     {List<ParticipantesModel>? listSheet, //List a Sincronizar
+  //     BuildContext? context}) async {
 
-// class _PDFExportDeslindeState extends State<PDFExportDeslinde> {
-//   bool isSaving = false;
-//   Uint8List? _signatureImage;
+  //   isSyn = true;
+  //   notifyListeners();
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return isSaving
-//         ? const SizedBox(
-//             width: 30,
-//             height: 30,
-//             child: CircularProgressIndicator(
-//               strokeWidth: 3,
-//             ),
-//           )
-//         : IconButton(
-//             icon: const Icon(
-//               Icons.print_rounded,
-//               size: 30,
-//             ),
-//             onPressed: () async {
-//               setState(() {
-//                 isSaving = true;
-//               });
+  //   // Verificamos que la lista no sea nula
+  //   if (listSheet == null) return;
+  //   // Lista para elementos que deben ser eliminados de listRunner
+  //   List<ParticipantesModel> toBeDeleted = [];
 
-//               // Simulación de guardado con un retraso de 2 segundos
-//               await Future.delayed(const Duration(seconds: 2));
+  //   //1:Afirmamos que "e" esta en la lista poketbase del api runner
+  //   for (var e in listaRunner) {
+  //     final index = listSheet.indexWhere((sheet) => sheet.key == e.key); //posicion del elemnto [index]
+  //     //2:Verificamos si el elemento existe
+  //     /*.any(...): Este método pertenece a la clase Iterable en 
+  //   Dart y verifica si al menos un elemento dentro del iterable cumple con la condición especificada.*/
+  //     if (listaRunner.any((sheet) => sheet.key == e.key)) {
+  //       //si Existe!
+  //       //3:obtenemos el indice del primer elemento de la lista que cumple la condicion
 
-//               // Mostrar modal bottom sheet para la firma
-//               await _showSignatureModal(context);
+  //       // Sincronizamos el elemento con la lista de Sheety
+  //       var existingItem = listSheet[index];
+  //       // Aseguramos que `id` y `idsheety` estén correctamente asignados
+  //       // e.id = existingItem.id;
+  //       e.idsheety = existingItem.id;
+  //       e.title = 'Update';
+  //       //NO DEBERIAMOS hcer un update sin antes verificar si el elemento ha sufrido cambios,
+  //       //para eso debermos comprarbar si hay cambios, caso contrario no hacer update.
 
-//               // Generar PDF con la firma si se ha firmado
-//               if (_signatureImage != null) {
-//                 ByteData byteData =
-//                     await rootBundle.load('assets/img/logo_small.png');
-//                 Uint8List imagenBytes = byteData.buffer.asUint8List();
-//                 const grisbordertable =
-//                     PdfColor.fromInt(0xFFACA7A7); // Gris oscuro
+  //       //4:Ejecutamos la accion,Sera UN UPDATE ya que el registro ay existe
+  //       // Verificamos si el elemento ha sufrido cambios antes de actualizar
+  //       if (existingItem != e) {
+  //         //4: Ejecutamos la acción, será un UPDATE ya que el registro ya existe
+  //         await saveProductosApp(e);
+  //         print(
+  //             'UPDATE en el servidor ${e.nombre} => ${listSheet[index].nombre}');
+  //       } else {
+  //         print('No se detectaron cambios para ${e.nombre}');
+  //       }
+  //     } else {
+  //       /*Si no existe :deberia guardar pero, deebemos verificar si listrunner aun existe en el listwheety
+  //       si n list runner tiene un dato que existe en su lista, pero en list sheety ese dato ha sido eliminado en algun momento, 
+  //       tambein al momento de sincronizar debria leiminarse en listrunner. como lologro */
 
-//                 pw.Document pdf = pw.Document();
+  //       //6: Si key es nulo quiere decir que no existe en el servidor
+  //       if (e.key == null) {
+  //         //7: Se tiene que hacer un POST al servidor como nuevo registro
+  //         await saveProductosApp(e);
+  //         print('CREATE en el servidor ${e.nombre}');
+  //       } else {
+  //         //Si el prodcuto si tiene ID pero no existe
+  //          toBeDeleted.add(e);
+  //         await deleteTAsistenciaApp(e.id);
+  //         print('DELETE en el servidor ${e.nombre}');
+  //       }
+  //       // PlatformAlertDialog(message: 'Cambios en el servidor', title: '${listSheet[index].nombre}');
+  //     }
+  //   }
 
-//                 // Página de ejemplo
-//                 pdf.addPage(pw.MultiPage(
-//                   margin: const pw.EdgeInsets.all(20),
-//                   maxPages: 200,
-//                   pageFormat: PdfPageFormat.a4.copyWith(
-//                       marginTop: 0,
-//                       marginBottom: 30), // Aplica los márgenes
-//                   build: (pw.Context context) {
-//                     var textStyle = pw.TextStyle(
-//                         fontWeight: pw.FontWeight.bold, fontSize: 10);
-//                     const edgeInsets =
-//                         pw.EdgeInsets.symmetric(horizontal: 5, vertical: 2);
-//                     return [
-//                       pw.Column(
-//                         children: [
-//                           titlePages(imagenBytes),
-//                          pw.Center(
-//                       child: pw.Image(pw.MemoryImage(_signatureImage!), width: 100, height: 100),
-//                     )
-//                         ],
-//                       ),
-//                     ];
-//                   },
-//                   footer: (context) {
-//                     return fooTerPDF();
-//                   },
-//                 ));
+  //    // Eliminar elementos de listaRunner que no existen en listSheet
+  //   for (var e in toBeDeleted) {
+  //     await deleteTAsistenciaApp(e.id);
+  //     print('DELETE en el servidor ${e.nombre}');
+  //   }
 
-//                 Uint8List bytes = await pdf.save();
-//                 Directory directory =
-//                     await getApplicationDocumentsDirectory();
-//                 File filePdf =
-//                     File("${directory.path}/asistencias ${23}.pdf");
-//                 filePdf.writeAsBytes(bytes);
-//                 OpenFilex.open(filePdf.path);
+  //   // Añadir elementos de listSheet que no están en listaRunner
+  //   for (var sheet in listSheet) {
+  //     if (!listaRunner.any((e) => e.key == sheet.key)) {
+  //       await saveProductosApp(sheet);
+  //       print('CREATE en el servidor ${sheet.nombre}');
+  //     }
+  //   }
+  //   isSyn = false;
+  //   notifyListeners();
+  // }
 
-//                 // Mostrar un mensaje de éxito
-//                 ScaffoldMessenger.of(context).showSnackBar(
-//                   const SnackBar(
-//                     content: Text('Archivo PDF exportado con éxito'),
-//                   ),
-//                 );
-//               }
 
-//               setState(() {
-//                 isSaving = false;
-//               });
-//             },
-//           );
-//   }
 
-//   Future<void> _showSignatureModal(BuildContext context) async {
-//     final _controller = SignatureController(
-//       penStrokeWidth: 5,
-//       penColor: Colors.black,
-//       exportBackgroundColor: Colors.white,
-//     );
 
-//     await showModalBottomSheet(
-//       context: context,
-//       builder: (BuildContext context) {
-//         return Container(
-//           height: MediaQuery.of(context).size.height * 0.8,
-//           child: Column(
-//             children: [
-//               Expanded(
-//                 child: Signature(
-//                   controller: _controller,
-//                   backgroundColor: Colors.white,
-//                 ),
-//               ),
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: [
-//                   ElevatedButton(
-//                     onPressed: () {
-//                       _controller.clear();
-//                     },
-//                     child: Text('Resetear Firma'),
-//                   ),
-//                   SizedBox(width: 20),
-//                   ElevatedButton(
-//                     onPressed: () async {
-//                       final signature = await _controller.toPngBytes();
-//                       if (signature != null) {
-//                         setState(() {
-//                           _signatureImage = signature;
-//                         });
-//                         Navigator.of(context).pop();
-//                       }
-//                     },
-//                     child: Text('Guardar Firma'),
-//                   ),
-//                 ],
-//               ),
-//             ],
-//           ),
-//         );
-//       },
-//     );
-//   }
+  // bool isSyn = false;
+  // // Lista para elementos que deben ser eliminados de listRunner
+  // List<ParticipantesModel> toBeDeleted = [];
+  // List<ParticipantesModel> toBeUpdate = [];
+  // List<ParticipantesModel> toBeCreated = [];
 
-//   pw.TextStyle tableTextStyle() {
-//     return pw.TextStyle(
-//       fontSize: 8,
-//       fontWeight: pw.FontWeight.normal,
-//     );
-//   }
+  // Future<void> sincServer( {List<ParticipantesModel>? listSheet}) async {
+  //   isSyn = true;
+  //   notifyListeners();
+  //   // Verificamos que la lista no sea nula
+  //   if (listSheet == null) return;
 
-//   pw.Container fooTerPDF() {
-//     const marronColor = PdfColor.fromInt(0xFF663300); // Marrón
-//     return pw.Container(
-//       alignment: pw.Alignment.center,
-//       child: pw.Column(
-//         children: [
-//           pw.Divider(
-//             color: marronColor,
-//             thickness: 3,
-//             height: 10,
-//           ), // Línea divisoria
-//           pw.Text(
-//             'Con el corazón en las montañas, construimos experiencias únicas para el mundo.',
-//             style: pw.TextStyle(
-//               fontSize: 9,
-//               color: marronColor,
-//             ),
-//           ), // Color gris oscuro personalizado
-//         ],
-//       ),
-//     );
-//   }
+  //   /*iteramos listaRunner: esta lista es producto de sincronizacionesa anteriores por listsheety
+  //   Contine las mimas inforacion de listsheety, si en list sheety se modifica alfgo deberi amodiifcarse
+  //   al sincronizar tambien, se se elimina algo en listsheety, deberia eliminar en listrunner tambein,
+  //   para eso estamos gestioando la infroacion de la siguiente manera */
+  //   for (var e in listaRunner) {
+  //      //obtenemos el indice del primer elemento de la lista que cumple la condicion
+  //     final index = listSheet.indexWhere((sheet) => sheet.key == e.key); //posicion del elemnto [index]
+  //     //Verificamos si el elemento existe
+  //     if (listaRunner.any((sheet) => sheet.key == e.key)) {//si Existe!
 
-//   pw.Widget titlePages(Uint8List imagenBytes) {
-//     const marronColor = PdfColor.fromInt(0xFF2E1C09); // Marrón
-//     return pw.Container(
-//       alignment: pw.Alignment.center,
-//       margin: pw.EdgeInsets.only(bottom: 10),
-//       child: pw.Row(
-//         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-//         children: [
-//           pw.Row(
-//             children: [
-//               pw.Container(
-//                 margin: pw.EdgeInsets.symmetric(horizontal: 5),
-//                 width: 8,
-//                 height: 40,
-//                 color: marronColor,
-//               ),
-//               pw.Column(
-//                 crossAxisAlignment: pw.CrossAxisAlignment.start,
-//                 children: [
-//                   pw.Text(
-//                     'REPORTE DE ASISTENCIAS',
-//                     style: pw.TextStyle(
-//                       fontSize: 13,
-//                       fontWeight: pw.FontWeight.bold,
-//                       color: marronColor,
-//                     ),
-//                   ),
-//                   pw.Text(
-//                     'CÓDIGO: ',
-//                     style: pw.TextStyle(
-//                       fontSize: 11,
-//                       fontWeight: pw.FontWeight.bold,
-//                       color: marronColor,
-//                     ),
-//                   ),
-//                   pw.Text(
-//                     '[  registros ]',
-//                     style: pw.TextStyle(
-//                       fontSize: 9,
-//                       color: marronColor,
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ],
-//           ),
-//           pw.Container(
-//             width: 130,
-//             child: pw.Column(
-//               children: [
-//                 pw.Image(
-//                   pw.MemoryImage(imagenBytes),
-//                 ),
-//                 pw.Text(
-//                   'Área de Operaciones y Logística',
-//                   style: pw.TextStyle(
-//                     fontSize: 8,
-//                     fontWeight: pw.FontWeight.bold,
-//                   ),
-//                   textAlign: pw.TextAlign.center,
-//                 ),
-//                 pw.Text(
-//                   DateTime.now().toString(),
-//                   style: pw.TextStyle(
-//                     fontSize: 6,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
+  //       var existingItem = listSheet[index];//obtenemso el elemento
+  //       // Aseguramos que `id` y `idsheety` estén correctamente asignados
+  //       // e.id = existingItem.id;
+  //       e.idsheety = existingItem.id;
+  //       e.title = 'Update';
+  //       //Ejecutamos UN UPDATE ya que el registro ay existe
+  //       // Verificamos si el elemento ha sufrido cambios antes de actualizar
+  //       if (existingItem != e) {
+  //         toBeUpdate.add(e);
+  //         notifyListeners();
+  //       } else {
+  //         print('No se detectaron cambios para ${e.nombre}');
+  //       }
+  //     } else {
+
+  //       //6: Si key es nulo quiere decir que no existe en el servidor
+  //       if (e.key == null) {
+  //         //7: Se tiene que hacer un POST al servidor como nuevo registro
+  //         // await saveProductosApp(e);
+  //         toBeCreated.add(e);
+  //         notifyListeners();
+  //       } else {
+  //         //Si el registro existe en Lsitrunner pero ya no existe en listsheet
+  //          toBeDeleted.add(e);
+  //          notifyListeners();
+  //         // await deleteTAsistenciaApp(e.id);
+  //       }
+  //       // PlatformAlertDialog(message: 'Cambios en el servidor', title: '${listSheet[index].nombre}');
+  //     }
+  //   }
+
+  // //  if (toBeUpdate.isNotEmpty) {
+  // //     for (var e in toBeUpdate) {
+  // //     await saveProductosApp(e);
+  // //     print('UPDATE en el servidor ${e.nombre}');
+  // //   }
+  // //  }
+  // //    // Eliminar elementos de listaRunner que no existen en listSheet
+  // //   if (toBeDeleted.isNotEmpty) {
+  // //     for (var e in toBeDeleted) {
+  // //     await deleteTAsistenciaApp(e.id);
+  // //     print('DELETE en el servidor ${e.nombre}');
+  // //   }
+  // //   }
+
+  // //   // Añadir elementos de listSheet que no están en listaRunner
+  // //   if (toBeDeleted.isNotEmpty) {
+  // //     for (var sheet in listSheet) {
+  // //     if (!listaRunner.any((e) => e.key == sheet.key)) {
+  // //       await saveProductosApp(sheet);
+  // //       print('CREATE en el servidor ${sheet.nombre}');
+  // //     }
+  // //   }
+  // //   }
+  //   print('HOLA');
+  //   isSyn = false;
+  //   notifyListeners();
+  // }

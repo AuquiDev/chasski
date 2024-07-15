@@ -1,12 +1,12 @@
 import 'package:chasski/models/model_t_empleado.dart';
 import 'package:chasski/pages/t_local_storage.dart';
-import 'package:chasski/widgets/image_app_widget.dart';
+import 'package:chasski/utils/assets_img_urlserver.dart';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:chasski/provider_cache/current_page.dart';
 import 'package:chasski/pages/routes_pages.dart';
 import 'package:chasski/provider_cache/provider_cache.dart';
-import 'package:chasski/utils/custom_text.dart';
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:chasski/widgets/cerrar_sesion.dart';
 import 'package:chasski/widgets/offline_buton.dart';
 import 'package:flutter_svg/svg.dart';
@@ -256,10 +256,16 @@ class UserImage extends StatelessWidget {
     return Container(
       child: user == null
           ? imagenLogo()
-          : ImageLoginUser(
-              user: user,
-              size: size,
-            ),
+          : 
+          GLobalImageUrlServer(
+            image: user!.imagen ?? ' ', 
+            collectionId:  user!.collectionId!, 
+            id: user!.id!, 
+            borderRadius: BorderRadius.circular(300), 
+            height: size,
+            width: size,
+            )
+           
     );
   }
 }

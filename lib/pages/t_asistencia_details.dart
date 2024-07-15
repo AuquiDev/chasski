@@ -10,7 +10,7 @@ import 'package:chasski/provider/provider_sql_tasitencia.dart';
 import 'package:chasski/provider_cache/provider_cache.dart';
 import 'package:chasski/provider/provider_t_asistencia.dart';
 import 'package:chasski/provider/provider_t_detalle_trabajo.dart';
-import 'package:chasski/utils/custom_text.dart';
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:chasski/utils/format_fecha.dart';
 import 'package:provider/provider.dart';
 

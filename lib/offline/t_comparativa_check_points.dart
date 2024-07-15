@@ -5,7 +5,7 @@
 import 'package:chasski/models/model_check_points.dart';
 import 'package:flutter/material.dart';
 // import 'package:chaskis/models/model_t_asistencia.dart';
-import 'package:chasski/utils/custom_text.dart';
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:chasski/utils/format_fecha.dart';
 
 class ContentCargaDatosCheckpoints extends StatelessWidget {

@@ -10,7 +10,7 @@ import 'package:flutter/rendering.dart';
 import 'package:chasski/offline/pdf_incidentes.dart';
 // import 'package:chaskis/provider/provider_sql_personal.dart';
 // import 'package:chaskis/provider/provider_t_personal.dart';
-import 'package:chasski/utils/custom_text.dart';
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:chasski/utils/format_fecha.dart';
 import 'package:chasski/widgets/state_signal_icons.dart';
 import 'package:provider/provider.dart';

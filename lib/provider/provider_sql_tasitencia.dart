@@ -1,12 +1,13 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously, prefer_adjacent_string_concatenation
 
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:flutter/material.dart';
 import 'package:chasski/models/model_t_asistencia.dart';
 import 'package:chasski/sqllite/db_create_local_storage.dart';
 import 'package:chasski/sqllite/db_crud_asistencia.dart';
 import 'package:chasski/offline/tabla_comparativa_sql.dart';
 import 'package:chasski/provider/provider_t_asistencia.dart';
-import 'package:chasski/utils/custom_text.dart';
+
 import 'package:provider/provider.dart';
 
 class DBAsistenciaAppProvider with ChangeNotifier {

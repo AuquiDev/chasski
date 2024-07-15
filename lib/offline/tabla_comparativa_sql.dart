@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:chasski/models/model_t_asistencia.dart';
-import 'package:chasski/utils/custom_text.dart';
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:chasski/utils/format_fecha.dart';
 
 class ContentCargaDatos extends StatelessWidget {

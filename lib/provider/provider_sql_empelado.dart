@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:chasski/models/model_t_empleado.dart';
 import 'package:chasski/sqllite/db_crud_empleado.dart';
 import 'package:chasski/sqllite/db_create_local_storage.dart';
-import 'package:chasski/utils/custom_text.dart';
+import 'package:chasski/widgets/assets_textapp.dart';
 
 class DBEMpleadoProvider with ChangeNotifier {
   List<TEmpleadoModel> listsql = []; //LISTA para alamcenar los datos

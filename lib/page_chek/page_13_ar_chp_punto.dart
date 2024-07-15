@@ -24,8 +24,7 @@ import 'package:vibration/vibration.dart';
 import 'package:chasski/provider/provider_sql_empelado.dart';
 import 'package:chasski/provider/provider_sql_runners_ar.dart';
 import 'package:chasski/provider/provider_t_runners_ar.dart';
-import 'package:chasski/utils/custom_text.dart';
-import 'package:chasski/widgets/state_signal_small.dart';
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:delayed_display/delayed_display.dart';
 
 //PAGINA PARA SCANEAR QR

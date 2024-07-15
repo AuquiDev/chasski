@@ -30,7 +30,7 @@ import 'package:chasski/page_chek/page_6_ar_chp_punto.dart';
 import 'package:chasski/page_chek/page_7_ar_chp_punto.dart';
 import 'package:chasski/page_chek/page_8_ar_chp_punto.dart';
 import 'package:chasski/page_chek/page_9_ar_chp_punto.dart';
-import 'package:chasski/utils/custom_text.dart';
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:chasski/widgets/close_page_buton.dart';
 import 'package:flutter/material.dart';
 

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:chasski/models/model_t_detalle_trabajo.dart';
 import 'package:chasski/sqllite/db_crud_detalletrabajo.dart';
 import 'package:chasski/sqllite/db_create_local_storage.dart';
-import 'package:chasski/utils/custom_text.dart';
+import 'package:chasski/widgets/assets_textapp.dart';
 
  class DBDetalleGrupoProvider with ChangeNotifier {
   List<TDetalleTrabajoModel> listsql = []; //LISTA para alamcenar los datos

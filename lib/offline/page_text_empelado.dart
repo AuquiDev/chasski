@@ -8,7 +8,7 @@ import 'package:chasski/models/model_t_empleado.dart';
 import 'package:chasski/offline/pdf_incidentes.dart';
 import 'package:chasski/provider/provider_sql_empelado.dart';
 import 'package:chasski/provider/provider_t_empleado.dart';
-import 'package:chasski/utils/custom_text.dart';
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:chasski/widgets/state_signal_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:quickalert/models/quickalert_type.dart';

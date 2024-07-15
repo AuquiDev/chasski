@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:pocketbase/pocketbase.dart';
 
 class TEventoArProvider with ChangeNotifier {
-  List<TEventoModel> listAsistencia = [];
+  List<TEventoModel> listDistancia = [];
 
   TEventoArProvider() {
     print('CheckAR00 Inicializado');
@@ -16,20 +16,20 @@ class TEventoArProvider with ChangeNotifier {
   }
 
   //SET Y GET
-  List<TEventoModel> get e => listAsistencia;
+  List<TEventoModel> get e => listDistancia;
 
   void addAsistencia(TEventoModel e) {
-    listAsistencia.add(e);
+    listDistancia.add(e);
     notifyListeners();
   }
 
   void updateTAsistencia(TEventoModel e) {
-    listAsistencia[listAsistencia.indexWhere((x) => x.id == e.id)] = e;
+    listDistancia[listDistancia.indexWhere((x) => x.id == e.id)] = e;
     notifyListeners();
   }
 
   void deleteTAsistencia(TEventoModel e) {
-    listAsistencia.removeWhere((x) => x.id == e.id);
+    listDistancia.removeWhere((x) => x.id == e.id);
     notifyListeners();
   }
 

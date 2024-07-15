@@ -8,7 +8,7 @@ import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:chasski/provider_cache/provider_cache.dart';
-import 'package:chasski/utils/custom_text.dart';
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_expanded_tile/flutter_expanded_tile.dart';
 

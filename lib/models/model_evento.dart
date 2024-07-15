@@ -15,6 +15,10 @@ class TEventoModel {
   String? logo;
   String? logoSmall;
 
+  String? proyectname;
+  String? tokenSheety;
+  String? hojaSheetname;
+
   TEventoModel({
     this.idsql,
     this.id,
@@ -28,6 +32,10 @@ class TEventoModel {
     required this.estatus,
     this.logo,
     this.logoSmall,
+
+     this.proyectname,
+     this.tokenSheety,
+     this.hojaSheetname,
   });
 
   factory TEventoModel.fromJson(Map<String, dynamic> json) => TEventoModel(
@@ -42,6 +50,10 @@ class TEventoModel {
         estatus: json["estatus"],
         logo: json["logo"],
         logoSmall: json["logo_small"],
+
+        proyectname: json["proyectname"],
+        tokenSheety: json["tokenSheety"],
+        hojaSheetname: json["hojaSheetname"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -56,6 +68,10 @@ class TEventoModel {
         "estatus": estatus,
         // "logo": logo,
         // "logo_small": logoSmall,
+
+        "proyectname": proyectname,
+        "tokenSheety": tokenSheety,
+        "hojaSheetname": hojaSheetname,
       };
 }
 

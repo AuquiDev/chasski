@@ -43,8 +43,11 @@ import 'package:chasski/provider/provider_t_evento_ar.dart';
 import 'package:chasski/provider/provider_t_list_check_list.dart';
 import 'package:chasski/provider/provider_t_list_check_points.dart';
 import 'package:chasski/provider/provider_t_runners_ar.dart';
+import 'package:chasski/provider/provider_t_sponsors.dart';
 import 'package:chasski/provider_cache/provider_runner.dart';
-// import 'package:firebase_core/firebase_core.dart';
+import 'package:chasski/sheety/pokertbaseSinc/provider_t_participantes.dart';
+import 'package:chasski/sheety/provider_sheety.dart';
+import 'package:chasski/widgets/assets_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:chasski/provider_cache/current_page.dart';
@@ -79,7 +82,8 @@ void main() async {
   //FIREBASE
   // WidgetsFlutterBinding.ensureInitialized();
   // Firebase.initializeApp().then((value) {
-  //   runApp(const AppState());
+  // await Firebase.initializeApp();
+  runApp(const AppState());
   // });
 }
 
@@ -379,6 +383,24 @@ class AppState extends StatelessWidget {
           create: (context) => DBCheckPointsAppProviderAr0META(),
           lazy: false,
         ),
+
+        //Sponsor Server
+        ChangeNotifierProvider(
+          create: (context) => TSponsorsProvider(),
+          lazy: false,
+        ),
+        
+
+        //Participantes 2024 - sheety 
+        ChangeNotifierProvider(
+          create: (context) => ParticipantesDataProvider(),
+          lazy: false,
+        ),
+        //Participantes 2024 - Poketbase 
+        ChangeNotifierProvider(
+          create: (context) => TParticipantesProvider(),
+          lazy: false,
+        ),
       ],
       builder: (context, _) {
         return const MyApp();
@@ -396,9 +418,48 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Andes Race App',
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-        appBarTheme:
-            AppBarTheme(elevation: 0, surfaceTintColor: Colors.transparent),
+        colorScheme: ColorScheme(
+          primary: AppColors.primaryRed,
+          primaryContainer: AppColors.primaryRed.withOpacity(0.8),
+          secondary: AppColors.accentColor,
+          secondaryContainer: AppColors.accentColor.withOpacity(0.8),
+          surface: AppColors.backgroundLight,
+          error: Colors.red,
+          onPrimary: AppColors.primaryWhite,
+          onSecondary: AppColors.primaryWhite,
+          onSurface: AppColors.textPrimary,
+          onError: AppColors.primaryWhite,
+          brightness: Brightness.light,
+        ),
+        fontFamily: 'Quicksand',
+        // Definiendo el tema de los botones
+        buttonTheme: const ButtonThemeData(
+          buttonColor: AppColors.buttonPrimary,
+          textTheme: ButtonTextTheme.primary,
+        ),
+        // Definiendo el tema de AppBar
+        appBarTheme: const AppBarTheme(
+          color: AppColors.primaryRed,
+          titleTextStyle: TextStyle(
+            color: AppColors.primaryWhite,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+          iconTheme: IconThemeData(color: AppColors.primaryWhite),
+        ),
+        // Definiendo el tema de los iconos
+        iconTheme: const IconThemeData(color: AppColors.primaryRed),
+        // Definiendo el tema de los inputs (TextField)
+        inputDecorationTheme: const InputDecorationTheme(
+          filled: true,
+          fillColor: AppColors.backgroundLight,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: AppColors.primaryRed),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: AppColors.textSecondary),
+          ),
+        ),
         /*
       VisualDensity.adaptivePlatformDensity ayuda a que los botones, textos y 
       otros elementos en la aplicación se vean bien y sean fáciles de usar en cualquier 
@@ -406,7 +467,8 @@ class MyApp extends StatelessWidget {
       se vea bien sin importar el tamaño de la pantalla o la densidad de píxeles. */
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const SplahScreen(),
+      home: const SplashScreen(),
     );
   }
 }
+

@@ -7,7 +7,7 @@ import 'package:chasski/models/model_t_detalle_trabajo.dart';
 import 'package:chasski/offline/pdf_incidentes.dart';
 import 'package:chasski/provider/provider_sql_detalle_grupo.dart';
 import 'package:chasski/provider/provider_t_detalle_trabajo.dart';
-import 'package:chasski/utils/custom_text.dart';
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:chasski/utils/format_fecha.dart';
 import 'package:chasski/widgets/state_signal_icons.dart';
 import 'package:provider/provider.dart';

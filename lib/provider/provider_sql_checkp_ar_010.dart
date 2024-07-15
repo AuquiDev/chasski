@@ -6,7 +6,7 @@ import 'package:chasski/provider/provider_t_checkp_ar_010.dart';
 import 'package:chasski/sqllite/db_crud_check_ar_p010.dart';
 import 'package:flutter/material.dart';
 import 'package:chasski/sqllite/db_create_local_storage.dart';
-import 'package:chasski/utils/custom_text.dart';
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:provider/provider.dart';
 
 class DBCheckPointsAppProviderAr010 with ChangeNotifier {

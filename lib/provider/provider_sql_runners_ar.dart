@@ -5,12 +5,8 @@ import 'package:chasski/offline/t_compartiva_runners_sql.dart';
 import 'package:chasski/provider/provider_t_runners_ar.dart';
 import 'package:chasski/sqllite/db_crud_runners.dart';
 import 'package:flutter/material.dart';
-// import 'package:chaskis/models/model_t_asistencia.dart';
 import 'package:chasski/sqllite/db_create_local_storage.dart';
-// import 'package:chaskis/sqllite/db_crud_asistencia.dart';
-// import 'package:chaskis/offline/tabla_comparativa_sql.dart';
-// import 'package:chaskis/provider/provider_t_asistencia.dart';
-import 'package:chasski/utils/custom_text.dart';
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:provider/provider.dart';
 
 class DBRunnersAppProvider with ChangeNotifier {

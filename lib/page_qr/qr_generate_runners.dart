@@ -5,7 +5,7 @@ import 'dart:ui' as ui;
 import 'package:chasski/models/model_runners_ar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:chasski/utils/custom_text.dart';
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class PageQrGenerateRunner extends StatefulWidget {

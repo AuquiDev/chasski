@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously, avoid_print
 
-
 import 'package:chasski/models/model_check_list_2file.dart';
 import 'package:chasski/provider/provider_t_checklist_02.dart';
 
@@ -18,8 +17,7 @@ import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:vibration/vibration.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:chasski/utils/custom_text.dart';
-import 'package:chasski/widgets/state_signal_small.dart';
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:delayed_display/delayed_display.dart';
 
 //PAGINA PARA SCANEAR QR
@@ -61,7 +59,7 @@ class _QrPage02ChListState extends State<QrPage02ChList> {
     final runnerServerList = Provider.of<TRunnersProvider>(context).listaRunner;
     // final runnerSQlList = Provider.of<DBRunnersAppProvider>(context).listsql;
     List<TRunnersModel> runnerList =
-        // isffline ? runnerSQlList : 
+        // isffline ? runnerSQlList :
         runnerServerList;
 
     return Scaffold(
@@ -89,7 +87,7 @@ class _QrPage02ChListState extends State<QrPage02ChList> {
                       idCheckList: widget.idCheckList,
                     ),
                   ),
-                  //NO CAMBIAN 
+                  //NO CAMBIAN
                   H2Text(
                       text: 'QR SCANNER'.toUpperCase(),
                       fontSize: 20,
@@ -101,8 +99,7 @@ class _QrPage02ChListState extends State<QrPage02ChList> {
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                   H2Text(
-                      text:
-                          'Presione sobre la imagen para escanear corredor.',
+                      text: 'Presione sobre la imagen para escanear corredor.',
                       fontSize: 12,
                       maxLines: 2,
                       textAlign: TextAlign.center,
@@ -111,10 +108,8 @@ class _QrPage02ChListState extends State<QrPage02ChList> {
               ),
             ),
           ),
-           Positioned(
-              right: 20,
-              top: 20,
-              child: SafeArea(child: OfflineSIgnalButon())),
+          Positioned(
+              right: 20, top: 20, child: SafeArea(child: OfflineSIgnalButon())),
           Positioned(left: 10, top: 10, child: ClosePageButon()),
         ],
       ),
@@ -139,8 +134,6 @@ class _QrPage02ChListState extends State<QrPage02ChList> {
     await flutterTts.speak(text);
   }
 }
-
-
 
 ///QR SCANNER
 class QrScannerAR0 extends StatefulWidget {
@@ -197,8 +190,8 @@ class _QrScannerAR0State extends State<QrScannerAR0> {
     fecha: DateTime.now(),
     estado: true,
     nombre: '',
-    dorsal: '', 
-    fileUrl: '', 
+    dorsal: '',
+    fileUrl: '',
     detalles: '',
   );
 
@@ -276,7 +269,8 @@ class _QrScannerAR0State extends State<QrScannerAR0> {
           context: context,
           type: QuickAlertType.success,
           title: 'Marcación Exitosa',
-          text: 'DORSAL: ${isPerson.dorsal}.\nNOMBRE: ${isPerson.nombre + isPerson.apellidos}.',
+          text:
+              'DORSAL: ${isPerson.dorsal}.\nNOMBRE: ${isPerson.nombre + isPerson.apellidos}.',
           confirmBtnColor: Colors.green,
           confirmBtnText: 'OK',
           width: 300,
@@ -291,28 +285,31 @@ class _QrScannerAR0State extends State<QrScannerAR0> {
         );
         //SIQREXISTE guardamos en la Base de datos
         // final listSql =   Provider.of<DBCheckPointsAppProviderAr00>(context, listen: false).listsql;
-        final listServer = Provider.of<TCheckList02Provider>(context, listen: false).listAsistencia;
-        final isOffline =  Provider.of<UsuarioProvider>(context, listen: false).isOffline;
+        final listServer =
+            Provider.of<TCheckList02Provider>(context, listen: false)
+                .listAsistencia;
+        final isOffline =
+            Provider.of<UsuarioProvider>(context, listen: false).isOffline;
         // Verificamos si el usuario ya tiene una asistencia registrada para hoy
         TChekListmodel02File? asistenciaPersonal;
         try {
-          asistenciaPersonal = 
-          // isOffline
-          //     ? listSql.firstWhere(
-          //         (e) {
-          //           print('List SQl : ${e.nombre}');
-          //           return e.nombre == isPerson.nombre &&
-          //               e.fecha.day == DateTime.now().day;
-          //         },
-          //       )
-          //     : 
+          asistenciaPersonal =
+              // isOffline
+              //     ? listSql.firstWhere(
+              //         (e) {
+              //           print('List SQl : ${e.nombre}');
+              //           return e.nombre == isPerson.nombre &&
+              //               e.fecha.day == DateTime.now().day;
+              //         },
+              //       )
+              //     :
               listServer.firstWhere(
-                  (e) {
-                    print('List SERVER : ${e.nombre}');
-                    return e.nombre == isPerson.nombre &&
-                        e.fecha.day == DateTime.now().day;
-                  },
-                );
+            (e) {
+              print('List SERVER : ${e.nombre}');
+              return e.nombre == isPerson.nombre &&
+                  e.fecha.day == DateTime.now().day;
+            },
+          );
           vibrate();
           setState(() {
             personScaner = asistenciaPersonal!;
@@ -323,11 +320,11 @@ class _QrScannerAR0State extends State<QrScannerAR0> {
 
         // Comprobamos si la asistencia para hoy existe y tiene un ID no nulo
         if (asistenciaPersonal?.id != null) {
-          // isOffline ? editarffline() : 
+          // isOffline ? editarffline() :
           editarEntrada();
           print('Asistencia editada');
         } else {
-          // isOffline ? enviaroffline() : 
+          // isOffline ? enviaroffline() :
           guardarEntrada();
           print('Asistencia guardada');
         }
@@ -412,31 +409,32 @@ class _QrScannerAR0State extends State<QrScannerAR0> {
 //SERVER
   Future<void> editarEntrada() async {
     await context.read<TCheckList02Provider>().updateTAsistenciaProvider(
+          context,
           id: personScaner.id,
           idCorredor: isPerson.id!,
           idCheckList: widget.idCheckList,
           fecha: DateTime.now(),
           estado: true,
-         
+
           // nombre: isPerson.nombre + ' ' + isPerson.apellidos,
           nombre: isPerson.nombre,
           dorsal: isPerson.dorsal,
-           fileUrl: '',
+          fileUrl: '',
           detalles: '',
         );
   }
 
   Future<void> guardarEntrada() async {
-    await context.read<TCheckList02Provider>().postTAsistenciaProvider(
+    await context.read<TCheckList02Provider>().postTAsistenciaProvider(context,
           id: '',
           idCorredor: isPerson.id!,
           idCheckList: widget.idCheckList,
           fecha: DateTime.now(),
           estado: true,
           // nombre: isPerson.nombre + ' ' + isPerson.apellidos,
-           nombre: isPerson.nombre,
+          nombre: isPerson.nombre,
           dorsal: isPerson.dorsal,
-           fileUrl: '',
+          fileUrl: '',
           detalles: '',
         );
   }

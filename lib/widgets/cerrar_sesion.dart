@@ -1,14 +1,9 @@
 
-import 'package:chasski/widgets/image_app_widget.dart';
+import 'package:chasski/widgets/assets-svg.dart';
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:flutter/material.dart';
-import 'package:chasski/pages/t_empleado_login.dart';
-import 'package:chasski/provider_cache/provider_cache.dart';
-import 'package:chasski/utils/custom_text.dart';
 import 'package:chasski/shared%20preferences/shared_global.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
-
-
 
 class CloseSesion extends StatelessWidget {
   const CloseSesion({
@@ -17,20 +12,20 @@ class CloseSesion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentImage = Provider.of<UsuarioProvider>(context).usuarioEncontrado;
+   
     return Card(
-       surfaceTintColor: Colors.white,
-      elevation: 1,
+      surfaceTintColor: Colors.white,
+      color: Colors.white,
+      elevation: 6,
       child: ListTile(
-         visualDensity: VisualDensity.compact,
         onTap: () async {
           SharedPrefencesGlobal sharedPrefs = SharedPrefencesGlobal();
           // Luego, llama al método setLoggedIn en esa instancia
           await sharedPrefs.logout(context);
-           await sharedPrefs.logoutRunner(context);
-         
-           await SharedPrefencesGlobal().deleteId();
-           await SharedPrefencesGlobal().deleteIDEvento();
+          await sharedPrefs.logoutRunner(context);
+
+          await SharedPrefencesGlobal().deleteId();
+          await SharedPrefencesGlobal().deleteIDEvento();
           await SharedPrefencesGlobal().deleteIDDistancia();
           await SharedPrefencesGlobal().deleteNombre();
           await SharedPrefencesGlobal().deleteNombreRun();
@@ -38,27 +33,22 @@ class CloseSesion extends StatelessWidget {
           await SharedPrefencesGlobal().deleteImage();
           await SharedPrefencesGlobal().deleteImageRun();
           await SharedPrefencesGlobal().deletePais();
-           await SharedPrefencesGlobal().deleteRol();
-            await SharedPrefencesGlobal().deleteTallaPolo();
-           await SharedPrefencesGlobal().deleteCollectionID();
-            await SharedPrefencesGlobal().deleteDorsal();
-            
+          await SharedPrefencesGlobal().deleteRol();
+          await SharedPrefencesGlobal().deleteTallaPolo();
+          await SharedPrefencesGlobal().deleteCollectionID();
+          await SharedPrefencesGlobal().deleteDorsal();
         },
         title: Row(
           children: [
-             ImageLoginUser(
-                  user: currentImage,
-                  size: 30,
-                ),
-              const SizedBox(width: 10,),
-            const H2Text(
+            const SizedBox(
+              width: 10,
+            ),
+            const P2Text(
               text: 'Cerrar Sesión',
-              fontSize: 11,
             ),
           ],
         ),
-        // ignore: deprecated_member_use
-        trailing: SvgPicture.asset("assets/img/off.svg", width: 20,color: Colors.red,),
+        trailing: AppSvg().cloesesion
       ),
     );
   }

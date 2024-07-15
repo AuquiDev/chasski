@@ -1,11 +1,17 @@
 import 'package:chasski/models/model_distancias_ar.dart';
+import 'package:chasski/models/model_evento.dart';
 import 'package:chasski/models/model_runners_ar.dart';
-import 'package:chasski/provider/provider_t_distancias_ar.dart';
-import 'package:chasski/provider/provider_t_runners_ar.dart';
-import 'package:chasski/provider_cache/provider_runner.dart';
+import 'package:chasski/utils/aasets_fondos_painter.dart';
+import 'package:chasski/utils/assets_img_urlserver.dart';
+import 'package:chasski/widgets/assets_boton_style.dart';
+import 'package:chasski/widgets/assets_colors.dart';
+
+import 'package:chasski/widgets/assets_textapp.dart';
+// import 'package:chasski/widgets/color_custom.dart';
+import 'package:chasski/widgets/widget/app_provider_runner.dart';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -17,33 +23,25 @@ class QrRunnerChild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TRunnersModel? user =
-        Provider.of<RunnerProvider>(context).usuarioEncontrado;
-    final loginProvider = Provider.of<TRunnersProvider>(context).listaRunner;
+    final runner = RunnerData.getRunner(context);
+    final evento = RunnerData.getEvent(context, runner);
+    final distancia = RunnerData.getDistance(context, runner);
 
-    TRunnersModel runner = loginProvider.firstWhere((e) => e.id == user!.id);
-
-    final distanProvider =
-        Provider.of<TDistanciasArProvider>(context).listAsistencia;
-
-    TDistanciasModel distancia = distanProvider.firstWhere(
-      (d) => d.id == runner.idDistancia,
-      orElse: () => distanciasDefault(),
-    );
-
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        DelayedDisplay(
-          delay: Duration(milliseconds: 500),
-          child: PageQrGenerateRunner(
-            e: runner,
-            distancia: distancia,
+    return Scaffold(
+      body: Stack(
+        alignment: Alignment.center,
+        children: [
+          CustomPaint(
+            size: Size(double.infinity, double.infinity),
+            painter: DiagonalPainter(),
           ),
-        ),
-        SizedBox(height: 50),
-      ],
+          DelayedDisplay(
+            delay: Duration(milliseconds: 500),
+            child: PageQrGenerateRunner(
+                e: runner, distancia: distancia, evento: evento),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -53,10 +51,12 @@ class PageQrGenerateRunner extends StatefulWidget {
     super.key,
     required this.e,
     required this.distancia,
+    required this.evento,
   });
 
   final TRunnersModel e;
   final TDistanciasModel distancia;
+  final TEventoModel evento;
 
   @override
   State<PageQrGenerateRunner> createState() => _PageQrGenerateRunnerState();
@@ -87,9 +87,8 @@ class _PageQrGenerateRunnerState extends State<PageQrGenerateRunner> {
         ),
       ),
     );
-
     //VALOR RETORNADO
-    return QrTickettarject(qrWidget: qrWidget);
+    return CardQrImageDowloader(widget: widget, qrWidget: qrWidget);
   }
 
   bool isLoading = false;
@@ -101,16 +100,35 @@ class _PageQrGenerateRunnerState extends State<PageQrGenerateRunner> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return Column(
+            // alignment: Alignment.topCenter,
             children: [
               Screenshot(
                 controller: screenshotController,
                 child: snapshot.data ?? Container(),
               ),
-              OutlinedButton(
-                onPressed: isLoading ? null : _captureAndSaveImage,
-                child: isLoading
-                    ? CircularProgressIndicator()
-                    : Icon(Icons.download),
+              Container(
+                width: 150,
+                child: ElevatedButton(
+                  style: buttonStyle1(backgroundColor: Colors.blue),
+                  onPressed: isLoading ? null : _captureAndSaveImage,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      P2Text(
+                        text: 'Descargar',
+                        color: Colors.white,
+                      ),
+                      isLoading
+                          ? CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : Icon(
+                              Icons.download,
+                              color: Colors.white,
+                            ),
+                    ],
+                  ),
+                ),
               ),
             ],
           );
@@ -127,22 +145,22 @@ class _PageQrGenerateRunnerState extends State<PageQrGenerateRunner> {
       isLoading = true;
     });
 
-    Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 2));
 
     if (image != null) {
       //GUARDAR IMAGEN EN GALLERIA
-      final result = await ImageGallerySaver.saveImage(image);
+      // final result = await ImageGallerySaver.saveImage(image);
+      await ImageGallerySaver.saveImage(image);
       //NOTIFICAR SI SI SE GUARDO
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
             elevation: 0,
-            backgroundColor: Colors.transparent,
-            content: Card(
-                color: Color(0xFF6BE66F),
-                child: Text(
-                  'Imagen guardada en galería: \n$result',
-                  textAlign: TextAlign.center,
-                ))),
+            backgroundColor: Colors.yellow,
+            content: P3Text(
+              text: 'Imagen guardada en galería ', //+ ': \n${result}',
+              textAlign: TextAlign.center,
+              color: AppColors.backgroundDark
+            )),
       );
       setState(() {
         isLoading = false;
@@ -151,37 +169,39 @@ class _PageQrGenerateRunnerState extends State<PageQrGenerateRunner> {
   }
 }
 
-class QrTickettarject extends StatelessWidget {
-  const QrTickettarject({
+class CardQrImageDowloader extends StatelessWidget {
+  const CardQrImageDowloader({
     super.key,
+    required this.widget,
     required this.qrWidget,
   });
 
+  final PageQrGenerateRunner widget;
   final RepaintBoundary qrWidget;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      // width: 300,
+      width: 350,
+      margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 2,
-            blurRadius: 7,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              spreadRadius: 3,
+              blurRadius: 4,
+              offset: Offset(0, 3),
+            )
+          ]),
       child: Column(
         children: [
           Container(
             width: double.infinity,
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: Color(0xFF4ABDF4),
+              border: Border.symmetric(horizontal:BorderSide(style: BorderStyle.solid, color: Colors.black12, width: 4), ),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(10),
                 topRight: Radius.circular(10),
@@ -189,61 +209,101 @@ class QrTickettarject extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Text(
-                  'Tiket anda sudah siap',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                GLobalImageUrlServer(
+                  image: widget.evento.logo!,
+                  collectionId: widget.evento.collectionId!,
+                  id: widget.evento.id!,
+                  borderRadius: BorderRadius.circular(0),
+                  height: 50,
+                  width: 130,
+                  fadingDuration: 1000,
+                  duration: 500, 
+                  curve: Curves.bounceInOut,
                 ),
-                SizedBox(height: 10),
-                Text(
-                  'Untuk 2 orang',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
+                H1Text(
+                  text: widget.evento.nombre,
+                  fontSize: 14,
                 ),
               ],
             ),
           ),
           Container(
             padding: EdgeInsets.all(20),
-            child: Column(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  'KAI Access',
-                  style: TextStyle(
-                    color: Colors.blue,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                GLobalImageUrlServer(
+                  image: widget.e.imagen ?? ' ',
+                  collectionId: widget.e.collectionId!,
+                  id: widget.e.id!,
+                  borderRadius: BorderRadius.circular(300),
+                  height: 100,
+                  width: 100,
+                   fadingDuration: 1000,
+                  duration: 500, 
+                  curve: Curves.bounceInOut,
                 ),
-                SizedBox(height: 10),
-                Text(
-                  'Scan this code in bar code scanner',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                  ),
+                SizedBox(
+                  width: 10,
                 ),
-                SizedBox(height: 10),
-                Container(
-                  padding: EdgeInsets.all(30),
-                  color: Colors.white,
-                  child: qrWidget,
-                ),
-                SizedBox(height: 10),
-                Text(
-                  'Valid 1 day',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      P3Text(
+                        text: widget.e.pais,
+                        color: Colors.black,
+                        textAlign: TextAlign.start,
+                      ),
+                      H3Text(
+                        text: widget.e.nombre + ' ' + widget.e.apellidos,
+                        fontWeight: FontWeight.bold,
+                        textAlign: TextAlign.start,
+                        maxLines: 2,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Column(
+                            children: [
+                              H1Text(
+                                text: widget.distancia.distancias,
+                                color: getColorFromHex(widget.distancia.color),
+                                fontSize: 25,
+                              ),
+                              P3Text(
+                                text: 'DISTANCIA',
+                              ),
+                            ],
+                          ),
+                          SizedBox(width: 10),
+                          Column(
+                            children: [
+                              Text(
+                                widget.e.dorsal,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              P3Text(
+                                text: 'DORSAL',
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: qrWidget,
           ),
         ],
       ),
@@ -251,6 +311,7 @@ class QrTickettarject extends StatelessWidget {
   }
 }
 
+//WIDGET EMBEBVIDO DENTRO DEL QR
 class QrChildTest extends StatelessWidget {
   const QrChildTest({
     super.key,
@@ -261,6 +322,7 @@ class QrChildTest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //ES Neseario que este en u nstack para posicioanr dentro del QR
     return Stack(
       children: [
         Align(
@@ -274,24 +336,15 @@ class QrChildTest extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FittedBox(
-                  child: Text(
-                    '${widget.e.dorsal}',
-                    style: TextStyle(
-                      fontSize: 22,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w900,
-                    ),
+                  child: H1Text(
+                    text: '${widget.e.dorsal}',
                     textAlign: TextAlign.center,
                   ),
                 ),
                 FittedBox(
-                  child: Text(
-                    '${widget.distancia.distancias} ',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: _getColorFromHex(widget.distancia.color),
-                      fontWeight: FontWeight.w900,
-                    ),
+                  child: H1Text(
+                    text: '${widget.distancia.distancias} ',
+                    color: getColorFromHex(widget.distancia.color),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -302,216 +355,4 @@ class QrChildTest extends StatelessWidget {
       ],
     );
   }
-
-  Color _getColorFromHex(String hexColor) {
-    hexColor = hexColor.replaceAll('#', '');
-    return Color(int.parse('FF$hexColor', radix: 16));
-  }
 }
-
-class TicketWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 300,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 2,
-            blurRadius: 7,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [],
-      ),
-    );
-  }
-}
-
-// class QrRunnerChild extends StatelessWidget {
-//   const QrRunnerChild({
-//     super.key,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     TRunnersModel? user =
-//         Provider.of<RunnerProvider>(context).usuarioEncontrado;
-//     final loginProvider = Provider.of<TRunnersProvider>(context).listaRunner;
-
-//     TRunnersModel runner = loginProvider.firstWhere((e) => e.id == user!.id);
-
-//     final distanProvider =
-//         Provider.of<TDistanciasArProvider>(context).listAsistencia;
-
-//     TDistanciasModel distancia = distanProvider.firstWhere(
-//         (d) => d.id == runner.idDistancia,
-//         orElse: () => distanciasDefault());
-
-//     return Column(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       crossAxisAlignment: CrossAxisAlignment.center,
-//       children: [
-//         DelayedDisplay(
-//             delay: Duration(milliseconds: 500),
-//             child: PageQrGenerateRunner(
-//               e: runner,
-//               distancia: distancia,
-//             )),
-//       ],
-//     );
-//   }
-// }
-
-// class PageQrGenerateRunner extends StatefulWidget {
-//   const PageQrGenerateRunner({
-//     super.key,
-//     required this.e,
-//     required this.distancia,
-//   });
-//   final TRunnersModel e;
-//   final TDistanciasModel distancia;
-
-//   @override
-//   State<PageQrGenerateRunner> createState() => _PageQrGenerateRunnerState();
-// }
-
-// class _PageQrGenerateRunnerState extends State<PageQrGenerateRunner> {
-//   Future<Widget> buildQrCode(TRunnersModel e) async {
-//     final qrDataString = '${widget.e.id}|${widget.e.nombre}|${widget.e.dorsal}';
-//     final ui.Image textImage = await generateTextImage(
-//         ' ${widget.e.dorsal} \n ${widget.distancia.distancias} ');
-//     // final ui.Image textImage = await generateTextImage(' 8989 \n 1002K ');
-
-//     final qrPainter = QrPainter(
-//         data: qrDataString,
-//         version: QrVersions.auto,
-//         // embeddedImage: textImage,
-//         eyeStyle: QrEyeStyle(color: Colors.black, eyeShape: QrEyeShape.square),
-//         embeddedImageStyle: const QrEmbeddedImageStyle(size: Size(70, 30)));
-
-//     final qrWidget = RepaintBoundary(
-//       child: CustomPaint(
-//         painter: qrPainter,
-//         //  foregroundPainter: BorderPainter(),
-//         size: const Size(250, 250),
-//         child: Container(
-//           height: 250,
-//           width: 250,
-//           child: Stack(
-//             children: [
-//               Align(
-//                 alignment: Alignment.bottomRight,
-//                 child: Container(
-//                   width: 67,
-//                   height: 63,
-//                   padding: EdgeInsets.all(2),
-//                   decoration: BoxDecoration(
-//                       // border: Border.all(style: BorderStyle.solid, width: 5),
-//                       color: Colors.white),
-//                   child: Column(
-//                     mainAxisAlignment: MainAxisAlignment.center,
-//                     children: [
-//                       FittedBox(
-//                         child: Text(
-//                           '${widget.e.dorsal}',
-//                           style: TextStyle(
-//                               fontSize: 16,
-//                               color: Colors.black,
-//                               fontWeight: FontWeight.w900),
-//                           textAlign: TextAlign.center,
-//                         ),
-//                       ),
-//                       FittedBox(
-//                         child: Text(
-//                           '${widget.distancia.distancias} ',
-//                           style: TextStyle(
-//                               fontSize: 16,
-//                               color: _getColorFromHex(widget.distancia.color),
-//                               fontWeight: FontWeight.w900),
-//                           textAlign: TextAlign.center,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//     return Container(
-//         padding: EdgeInsets.all(30), color: Colors.white, child: qrWidget);
-//   }
-
-//   Color _getColorFromHex(String hexColor) {
-//     hexColor = hexColor.replaceAll('#', '');
-//     return Color(int.parse('FF$hexColor', radix: 16));
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return FutureBuilder<Widget>(
-//       future: buildQrCode(widget.e),
-//       builder: (context, snapshot) {
-//         if (snapshot.connectionState == ConnectionState.done) {
-//           return snapshot.data ??
-//               Container(); // Puedes personalizar el contenedor de carga aquí
-//         } else {
-//           return const CircularProgressIndicator(); // Otra opción es mostrar un indicador de carga
-//         }
-//       },
-//     );
-//   }
-
-//   // Método para generar una imagen de texto
-//   Future<ui.Image> generateTextImage(String text) async {
-//     final double width = 250;
-//     final double height = 80;
-
-//     final recorder = ui.PictureRecorder();
-//     final canvas = Canvas(recorder);
-
-//     // Dibuja el texto en el lienzo
-//     final paragraphStyle = ui.TextStyle(
-//         background: Paint()..color = Colors.white,
-//         color: Colors.black,
-//         fontSize: 35.0,
-//         letterSpacing: 15.0,
-//         fontWeight: FontWeight.w900);
-//     final paragraphBuilder =
-//         ui.ParagraphBuilder(ui.ParagraphStyle(textAlign: TextAlign.center))
-//           ..pushStyle(paragraphStyle)
-//           ..addText(text);
-//     final paragraph = paragraphBuilder.build();
-//     paragraph.layout(ui.ParagraphConstraints(width: width));
-//     canvas.drawParagraph(paragraph,
-//         Offset((width - paragraph.width) / 2, (height - paragraph.height) / 2));
-
-//     // Completa el proceso de renderizado y devuelve la imagen
-//     final picture = recorder.endRecording();
-//     final img = await picture.toImage(width.toInt(), height.toInt());
-//     return img;
-//   }
-// }
-
-// class BorderPainter extends CustomPainter {
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     final paint = Paint()
-//       ..color = Colors.red
-//       ..style = PaintingStyle.stroke
-//       ..strokeWidth = 5;
-//     canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), paint);
-//   }
-
-//   @override
-//   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-// }

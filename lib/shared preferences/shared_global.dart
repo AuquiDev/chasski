@@ -37,7 +37,7 @@ class SharedPrefencesGlobal {
     // Redirige a la página de inicio de sesión después de cerrar sesión
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (_) => const SplahScreen()),
+      MaterialPageRoute(builder: (_) => const SplashScreen()),
     );
   }
 
@@ -60,7 +60,7 @@ class SharedPrefencesGlobal {
     // Redirige a la página de inicio de sesión después de cerrar sesión
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (_) => const SplahScreen()),
+      MaterialPageRoute(builder: (_) => const SplashScreen()),
     );
   }
 

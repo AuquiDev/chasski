@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:chasski/pages/routes_localstorage.dart';
-import 'package:chasski/utils/custom_text.dart';
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:chasski/widgets/color_custom.dart';
 import 'package:chasski/widgets/get_ramdomcolor.dart';
 import 'package:chasski/widgets/lotties_image.dart';

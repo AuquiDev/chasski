@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:flutter/material.dart';
 import 'package:chasski/models/model_t_asistencia.dart';
 import 'package:chasski/models/model_t_detalle_trabajo.dart';
@@ -9,7 +10,7 @@ import 'package:chasski/provider_cache/provider_cache.dart';
 import 'package:chasski/provider/provider_sql_detalle_grupo.dart';
 import 'package:chasski/provider/provider_sql_empelado.dart';
 import 'package:chasski/provider/provider_sql_tasitencia.dart';
-import 'package:chasski/utils/custom_text.dart';
+
 import 'package:chasski/widgets/get_ramdomcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';

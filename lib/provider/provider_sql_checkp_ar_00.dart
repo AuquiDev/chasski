@@ -4,9 +4,10 @@ import 'package:chasski/models/model_check_points.dart';
 import 'package:chasski/offline/t_comparativa_check_points.dart';
 import 'package:chasski/provider/provider_t_checkp_ar_00.dart';
 import 'package:chasski/sqllite/db_crud_check_ar_p00.dart';
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:flutter/material.dart';
 import 'package:chasski/sqllite/db_create_local_storage.dart';
-import 'package:chasski/utils/custom_text.dart';
+
 import 'package:provider/provider.dart';
 
 class DBCheckPointsAppProviderAr00 with ChangeNotifier {
@@ -286,6 +287,7 @@ class DBCheckPointsAppProviderAr00 with ChangeNotifier {
                 );
               },
             );
+           
             if (overwrite) {
               //Enviar al servidor
               await dataProvider.saveProductosApp(e); //UPDATE xq envia ID

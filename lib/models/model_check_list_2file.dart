@@ -50,8 +50,10 @@ class TChekListmodel02File {
         updated: (json["updated"]),
         idCorredor: json["id_corredor"],
         idCheckList: json["id_check_list"],
-        file: (json["file"]).toString() ?? '',
-        deslinde: json["deslinde"] ?? '',
+        file: json["file"] != null ? json["file"].toString() : '',
+      deslinde: json["deslinde"] != null ? json["deslinde"].toString() : '',
+        // file: (json["file"]).toString() ?? '',
+        // deslinde: json["deslinde"].toString() ?? '',
         fileUrl: json["file_url"],
         fecha: parseDateTime(json["fecha"]),
         estado: json["estado"],
@@ -88,5 +90,7 @@ TChekListmodel02File chekListDocDefault() {
         estado: true, 
         detalles: 'detalles', 
         nombre: 'nombre', 
-        dorsal: 'dorsal');
+        dorsal: 'dorsal', 
+        file: '', 
+        deslinde: '');
   }

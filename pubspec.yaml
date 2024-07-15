@@ -13,17 +13,17 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.6
+  cupertino_icons: ^1.0.8
   pocketbase: ^0.18.1
   provider: ^6.1.2
   shared_preferences: ^2.2.3
   cached_network_image: ^3.3.1
   connectivity_plus: ^5.0.2 #Gestionar conectividad de internet
   http: ^1.2.1
-  sqflite: ^2.3.3 #para SQL LITE Base de datos local, trabaja con path provider
+  sqflite: ^2.3.3  #para SQL LITE Base de datos local, trabaja con path provider
   path: ^1.8.3 #Para SQL LITE Nos sirve para unir elementos. trabaja con SQL lite 
   path_provider: ^2.1.2 #para SQL LITE encontrar ubicaciones de uso común en el sistema de archivos
-  pdf: ^3.10.8 #exportar pdf
+  pdf: ^3.11.0 #exportar pdf
   excel: ^4.0.3  #exportar excel
   open_filex: ^4.3.4  #abrir archivo y requiere de path provider
   flutter_tts: ^3.8.5 #de text a voz 
@@ -55,10 +55,16 @@ dependencies:
   screenshot: ^3.0.0 
   image_gallery_saver: ^2.0.3 #Acceso a Galleria 
   permission_handler: ^11.3.1 #PErmisos de Galleria.SOLO EN ANDROID
+  banner_carousel: ^1.2.1
+  url_launcher: ^6.3.0
+  cupertino_stepper: ^0.2.1 #Menu desplegable en orden. Steeper 
+  # webview_flutter: ^4.8.0
+  # country_code_picker: ^3.0.0 #CPOUNTRY RUNNER 
   #FIREBASE 
-  # firebase_core: ^3.1.0
+  # firebase_core: ^3.1.0 
   # cloud_firestore: ^5.0.1
-  # firebase_messaging: ^15.0.1 #Requiere Pago APPLE DEVELOPER $99
+  # firebase_messaging: ^15.0.2 #Requiere Pago APPLE DEVELOPER $99
+  
   
 
 dev_dependencies:
@@ -86,27 +92,22 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/img/
-    - assets/
-    - assets/song/
+      - assets/img/
+      - assets/loties/
+      - assets/svg/
+      - assets/song/
+  # example:
   fonts:
-   - family: Poppins
-     fonts:
-        - asset: assets/fonts/Poppins-Black.ttf
-        - asset: assets/fonts/Poppins-BlackItalic.ttf
-        - asset: assets/fonts/Poppins-Bold.ttf
-        - asset: assets/fonts/Poppins-BoldItalic.ttf
-        - asset: assets/fonts/Poppins-ExtraBold.ttf
-        - asset: assets/fonts/Poppins-ExtraBoldItalic.ttf
-        - asset: assets/fonts/Poppins-ExtraLight.ttf
-        - asset: assets/fonts/Poppins-ExtraLightItalic.ttf
-        - asset: assets/fonts/Poppins-Italic.ttf
-        - asset: assets/fonts/Poppins-Light.ttf
-        - asset: assets/fonts/Poppins-LightItalic.ttf
-        - asset: assets/fonts/Poppins-Medium.ttf
-        - asset: assets/fonts/Poppins-MediumItalic.ttf
-        - asset: assets/fonts/Poppins-Regular.ttf
-        - asset: assets/fonts/Poppins-SemiBold.ttf
-        - asset: assets/fonts/Poppins-SemiBoldItalic.ttf
-        - asset: assets/fonts/Poppins-Thin.ttf
-        - asset: assets/fonts/Poppins-ThinItalic.ttf
+    - family: Quicksand
+      fonts:
+        - asset: assets/fonts/Quicksand-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Quicksand-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Quicksand-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Quicksand-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Quicksand-SemiBold.ttf
+          weight: 600
+ 

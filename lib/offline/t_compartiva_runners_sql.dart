@@ -5,7 +5,7 @@
 import 'package:chasski/models/model_runners_ar.dart';
 import 'package:flutter/material.dart';
 // import 'package:chaskis/models/model_t_asistencia.dart';
-import 'package:chasski/utils/custom_text.dart';
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:chasski/utils/format_fecha.dart';
 
 class ContentCargaDatosRunners extends StatelessWidget {

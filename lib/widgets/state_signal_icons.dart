@@ -1,10 +1,11 @@
 import 'dart:async';
 
 
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:chasski/widgets/color_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:chasski/provider_cache/provider_cache.dart';
-import 'package:chasski/utils/custom_text.dart';
+
 import 'package:provider/provider.dart';
 
 class OfflineSIgnalButon extends StatelessWidget {

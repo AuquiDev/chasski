@@ -85,16 +85,28 @@ String formatFechaPDfhora(DateTime fecha) {
   return fechaFormateada;
 }
 
+String formatEventDates(DateTime startDate, DateTime endDate) {
+  // List of month names in Spanish
+  const List<String> months = [
+    'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+    'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+  ];
 
+  // Extract day, month, and year for both dates
+  String startDay = startDate.day.toString().padLeft(2, '0');
+  String startMonth = months[startDate.month - 1];
+  int startYear = startDate.year;
 
-// //AGRUPAR LISTA POR CATEGORIA FECHA DE VENCIMIENTO
-// String fechaFiltrada(DateTime fecha) {
-//   // Convertir la fecha a la zona horaria de América/Lima
-//   final tz.TZDateTime fechaLima =
-//       tz.TZDateTime.from(fecha, tz.getLocation('America/Lima'));
-//   fecha = fechaLima;
-//   String mesAno = mesesAnio[fecha.month - 1];
-//   String ano = fecha.year.toString();
-//   String fechaFormateada = fecha.year == 1998 ? '(fecha nula)' : '$mesAno $ano';
-//   return fechaFormateada;
-// }
+  String endDay = endDate.day.toString().padLeft(2, '0');
+  String endMonth = months[endDate.month - 1];
+  int endYear = endDate.year;
+
+  // Check if the month and year are the same for both dates
+  if (startMonth == endMonth && startYear == endYear) {
+    return '$startDay y $endDay de $startMonth del $startYear';
+  } else if (startYear == endYear) {
+    return '$startDay de $startMonth y $endDay de $endMonth del $startYear';
+  } else {
+    return '$startDay de $startMonth del $startYear y $endDay de $endMonth del $endYear';
+  }
+}

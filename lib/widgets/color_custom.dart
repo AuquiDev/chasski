@@ -11,10 +11,18 @@ class CustomColors {
   static const Color lightIndigo = Color(0xFFEFF1FB);
   static const Color indigo = Color(0xFF2943C5);
   static const Color darkIndigo = Color(0xFF0C4B76);
+  static const Color tealListh = Color(0xFF70B7D3);
   
   
 }
+//FUNSION QUE DEVULVE UN COLOR
+Color getColorFromHex(String hexColor) {
+  hexColor = hexColor.replaceAll('#', '');
+  return Color(int.parse('FF$hexColor', radix: 16));
+}
+
 
 final runnerLoties = Lottie.asset('assets/img/runner.json' );
 
 final runnerLotiesQR = Lottie.asset('assets/img/runner_qrs.json' );
+

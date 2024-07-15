@@ -4,9 +4,9 @@ import 'dart:ui';
 
 import 'package:chasski/models/model_list_check_list_ar.dart';
 import 'package:chasski/provider/provider_t_list_check_list.dart';
-import 'package:chasski/utils/custom_text.dart';
+
 import 'package:chasski/utils/format_fecha.dart';
-import 'package:chasski/utils/gradient_background.dart';
+import 'package:chasski/widgets/assets_textapp.dart';
 import 'package:chasski/widgets/color_custom.dart';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +38,7 @@ class TimelineView extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: gradientBackgroundlogin(),
+        // decoration: gradientBackgroundlogin(),
         child: Stack(
           
           children: [

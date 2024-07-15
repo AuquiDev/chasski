@@ -26,8 +26,9 @@ class RoutesLocalStorage {
   Widget icon;
   String title;
   Widget path;
+  String? content;
   RoutesLocalStorage(
-      {required this.icon, required this.title, required this.path});
+      {required this.icon, required this.title, required this.path, this.content});
 }
 
 List<RoutesLocalStorage> sqlRoutes = [
