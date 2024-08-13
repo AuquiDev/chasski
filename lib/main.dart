@@ -1,65 +1,66 @@
-import 'package:chasski/provider/provider_sql_checkp_ar_00.dart';
-import 'package:chasski/provider/provider_sql_checkp_ar_01.dart';
-import 'package:chasski/provider/provider_sql_checkp_ar_010.dart';
-import 'package:chasski/provider/provider_sql_checkp_ar_011.dart';
-import 'package:chasski/provider/provider_sql_checkp_ar_012.dart';
-import 'package:chasski/provider/provider_sql_checkp_ar_013.dart';
-import 'package:chasski/provider/provider_sql_checkp_ar_02.dart';
-import 'package:chasski/provider/provider_sql_checkp_ar_020meta.dart';
-import 'package:chasski/provider/provider_sql_checkp_ar_03.dart';
-import 'package:chasski/provider/provider_sql_checkp_ar_04.dart';
-import 'package:chasski/provider/provider_sql_checkp_ar_05.dart';
-import 'package:chasski/provider/provider_sql_checkp_ar_06.dart';
-import 'package:chasski/provider/provider_sql_checkp_ar_07.dart';
-import 'package:chasski/provider/provider_sql_checkp_ar_08.dart';
-import 'package:chasski/provider/provider_sql_checkp_ar_09.dart';
-import 'package:chasski/provider/provider_sql_list_check_points_ar.dart';
-import 'package:chasski/provider/provider_sql_runners_ar.dart';
-import 'package:chasski/provider/provider_t_checklist_01.dart';
-import 'package:chasski/provider/provider_t_checklist_02.dart';
-import 'package:chasski/provider/provider_t_checklist_03.dart';
-import 'package:chasski/provider/provider_t_checklist_04.dart';
-import 'package:chasski/provider/provider_t_checklist_05.dart';
-import 'package:chasski/provider/provider_t_checklist_06.dart';
-import 'package:chasski/provider/provider_t_checklist_07.dart';
-import 'package:chasski/provider/provider_t_checklist_08.dart';
-import 'package:chasski/provider/provider_t_checkp_ar_00.dart';
-import 'package:chasski/provider/provider_t_checkp_ar_01.dart';
-import 'package:chasski/provider/provider_t_checkp_ar_010.dart';
-import 'package:chasski/provider/provider_t_checkp_ar_011.dart';
-import 'package:chasski/provider/provider_t_checkp_ar_012.dart';
-import 'package:chasski/provider/provider_t_checkp_ar_013.dart';
-import 'package:chasski/provider/provider_t_checkp_ar_02.dart';
-import 'package:chasski/provider/provider_t_checkp_ar_020meta.dart';
-import 'package:chasski/provider/provider_t_checkp_ar_03.dart';
-import 'package:chasski/provider/provider_t_checkp_ar_04.dart';
-import 'package:chasski/provider/provider_t_checkp_ar_05.dart';
-import 'package:chasski/provider/provider_t_checkp_ar_06.dart';
-import 'package:chasski/provider/provider_t_checkp_ar_07.dart';
-import 'package:chasski/provider/provider_t_checkp_ar_08.dart';
-import 'package:chasski/provider/provider_t_checkp_ar_09.dart';
-import 'package:chasski/provider/provider_t_distancias_ar.dart';
-import 'package:chasski/provider/provider_t_evento_ar.dart';
-import 'package:chasski/provider/provider_t_list_check_list.dart';
-import 'package:chasski/provider/provider_t_list_check_points.dart';
-import 'package:chasski/provider/provider_t_runners_ar.dart';
-import 'package:chasski/provider/provider_t_sponsors.dart';
-import 'package:chasski/provider_cache/provider_runner.dart';
-import 'package:chasski/sheety/pokertbaseSinc/provider_t_participantes.dart';
-import 'package:chasski/sheety/provider_sheety.dart';
-import 'package:chasski/widgets/assets_colors.dart';
+import 'package:chasski/provider/cache/offlineState/provider_offline_state.dart';
+import 'package:chasski/provider/producto/provider_t_productoapp.dart';
+import 'package:chasski/provider/cache/runner/provider_cache_participantes.dart';
+import 'package:chasski/provider/cache/idEvento/provider_id_evento.dart';
+import 'package:chasski/provider/runners/offline/provider_sql___participantes.dart';
+import 'package:chasski/provider/vista%20runner/provider_v_tabla_participantes.dart';
+import 'package:chasski/provider/check%20point/offline/provider_sql_cp0.dart';
+import 'package:chasski/provider/check%20point/offline/provider_sql_cp1.dart';
+import 'package:chasski/provider/check%20point/offline/provider_sql_cp10.dart';
+import 'package:chasski/provider/check%20point/offline/provider_sql_cp11.dart';
+import 'package:chasski/provider/check%20point/offline/provider_sql_cp12.dart';
+import 'package:chasski/provider/check%20point/offline/provider_sql_cp13.dart';
+import 'package:chasski/provider/check%20point/offline/provider_sql_cp2.dart';
+import 'package:chasski/provider/check%20point/offline/provider_sql_cp14.dart';
+import 'package:chasski/provider/check%20point/offline/provider_sql_cp3.dart';
+import 'package:chasski/provider/check%20point/offline/provider_sql_cp4.dart';
+import 'package:chasski/provider/check%20point/offline/provider_sql_cp5.dart';
+import 'package:chasski/provider/check%20point/offline/provider_sql_cp6.dart';
+import 'package:chasski/provider/check%20point/offline/provider_sql_cp7.dart';
+import 'package:chasski/provider/check%20point/offline/provider_sql_cp8.dart';
+import 'package:chasski/provider/check%20point/offline/provider_sql_cp9.dart';
+import 'package:chasski/provider/check%20point/offline/provider_sql__list_chkpoint.dart';
+import 'package:chasski/provider/check%20list/provider_cl01.dart';
+import 'package:chasski/provider/check%20list/provider_cl02.dart';
+import 'package:chasski/provider/check%20list/provider_cl03.dart';
+import 'package:chasski/provider/check%20list/provider_cl04_beta_imagenes.dart';
+import 'package:chasski/provider/check%20list/provider_cl05.dart';
+import 'package:chasski/provider/check%20list/provider_cl06.dart';
+import 'package:chasski/provider/check%20list/provider_cl07.dart';
+import 'package:chasski/provider/check%20list/provider_cl08_beta_imagenes.dart';
+import 'package:chasski/provider/check%20point/online/provider_cp00.dart';
+import 'package:chasski/provider/check%20point/online/provider_cp01.dart';
+import 'package:chasski/provider/check%20point/online/provider_cp10.dart';
+import 'package:chasski/provider/check%20point/online/provider_cp11.dart';
+import 'package:chasski/provider/check%20point/online/provider_cp12.dart';
+import 'package:chasski/provider/check%20point/online/provider_cp13.dart';
+import 'package:chasski/provider/check%20point/online/provider_cp02.dart';
+import 'package:chasski/provider/check%20point/online/provider_cp14.dart';
+import 'package:chasski/provider/check%20point/online/provider_cp03.dart';
+import 'package:chasski/provider/check%20point/online/provider_cp04.dart';
+import 'package:chasski/provider/check%20point/online/provider_cp05.dart';
+import 'package:chasski/provider/check%20point/online/provider_cp06.dart';
+import 'package:chasski/provider/check%20point/online/provider_cp07.dart';
+import 'package:chasski/provider/check%20point/online/provider_cp08.dart';
+import 'package:chasski/provider/check%20point/online/provider_cp09.dart';
+import 'package:chasski/provider/distancia/provider_t_distancias_ar.dart';
+import 'package:chasski/provider/evento/provider_t_evento_ar.dart';
+import 'package:chasski/provider/check%20list/provider__t_list_cheklist.dart';
+import 'package:chasski/provider/check%20point/online/provider__list_chkpoint.dart';
+import 'package:chasski/provider/sponsor/provider_t_sponsors.dart';
+import 'package:chasski/provider/cache/qr%20validation/provider_qr_statescan.dart';
+import 'package:chasski/provider/runners/online/provider_t_participantes.dart';
+import 'package:chasski/provider/runners/sheety/provider_sheety_participantes.dart';
+import 'package:chasski/utils/colors/assets_colors.dart';
+import 'package:chasski/utils/speack/assets_speack.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:chasski/provider_cache/current_page.dart';
-import 'package:chasski/provider/provider_sql_detalle_grupo.dart';
-import 'package:chasski/provider/provider_sql_empelado.dart';
-import 'package:chasski/provider/provider_sql_tasitencia.dart';
-import 'package:chasski/provider_cache/provider_cache.dart';
-import 'package:chasski/provider/provider_t_asistencia.dart';
-import 'package:chasski/provider/provider_t_detalle_trabajo.dart';
-import 'package:chasski/provider/provider_t_empleado.dart';
-import 'package:chasski/zplashScreen/welcome_page.dart';
-import 'package:chasski/shared%20preferences/shared_global.dart';
+import 'package:chasski/provider/cache/start%20page/current_page.dart';
+import 'package:chasski/provider/empleado/offline/provider_sql__empelado.dart';
+import 'package:chasski/provider/cache/empleado/provider_cache.dart';
+import 'package:chasski/provider/empleado/online/provider_t_empleado.dart';
+import 'package:chasski/page/initial/plashScreen/welcome_page.dart';
+import 'package:chasski/provider/cache/shared/shared_global.dart';
 import 'package:provider/provider.dart';
 
 import 'package:timezone/data/latest.dart' as tz;
@@ -72,8 +73,14 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Inicializar SharedPreferencesGlobal
   SharedPrefencesGlobal prefs = SharedPrefencesGlobal();
   await prefs.initSharedPreferecnes();
+
+  // Inicializar TextToSpeechService
+  TextToSpeechService textToSpeechService = TextToSpeechService();
+  await textToSpeechService.initializeTts(); // Usar el singleton
+
   // Bloquear la rotación de la pantalla en toda la aplicación
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -97,21 +104,24 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => LayoutModel(),
         ),
-        //USUARIO CACHE
-        // TABLA DETALLE DE TRABAJO
+        //Runner QRScannState
         ChangeNotifierProvider(
-          create: (context) => TDetalleTrabajoProvider(),
+          create: (context) => RunnerQrScanState(),
           lazy: false,
         ),
-        // ChangeNotifierProvider(create: (context)=> AndesRaceProvider(), lazy: false,),
         //USUARIO CACHE
         ChangeNotifierProvider(
-          create: (context) => UsuarioProvider(),
+          create: (context) => CacheUsuarioProvider(),
           lazy: false,
         ),
-        //RUNNER CACHE
+        //RUNNER OfflineStateProvider
         ChangeNotifierProvider(
-          create: (context) => RunnerProvider(),
+          create: (context) => OfflineStateProvider(),
+          lazy: false,
+        ),
+        //ParticpantesProvider
+        ChangeNotifierProvider(
+          create: (context) => CacheParticpantesProvider(),
           lazy: false,
         ),
 
@@ -130,24 +140,9 @@ class AppState extends StatelessWidget {
           create: (context) => TEventoArProvider(),
           lazy: false,
         ),
-        // TABLA ASISTENCIA
-        ChangeNotifierProvider(
-          create: (context) => TAsistenciaProvider(),
-          lazy: false,
-        ),
-        // OOFLINETABLA SQLAsitencia
-        ChangeNotifierProvider(
-          create: (context) => DBAsistenciaAppProvider(),
-          lazy: false,
-        ),
-        //OFFLINE DETALLE GRUPO
-        ChangeNotifierProvider(
-          create: (context) => DBDetalleGrupoProvider(),
-          lazy: false,
-        ),
         //OFFLINE SQLEMPLEADO Y GRUPO
         ChangeNotifierProvider(
-          create: (context) => DBEMpleadoProvider(),
+          create: (context) => DBEmpleadoProvider(),
           lazy: false,
         ),
 
@@ -163,19 +158,19 @@ class AppState extends StatelessWidget {
         ),
         //OFFLINE LISTCHECK POINTS
         ChangeNotifierProvider(
-          create: (context) => DBTListCheckPoitns_ARProvider(),
+          create: (context) => DBTListCheckPoitnsProvider(),
           lazy: false,
         ),
 
-        //OFFLINE DBRUNNERS APP
-        ChangeNotifierProvider(
-          create: (context) => DBRunnersAppProvider(),
-          lazy: false,
-        ),
+        // //OFFLINE DBRUNNERS APP
+        // ChangeNotifierProvider(
+        //   create: (context) => RunnerData(),
+        //   lazy: false,
+        // ),
 
-        //RUNNERS
+        //PRODUCTOS
         ChangeNotifierProvider(
-          create: (context) => TRunnersProvider(),
+          create: (context) => TProductosAppProvider(),
           lazy: false,
         ),
 
@@ -228,7 +223,7 @@ class AppState extends StatelessWidget {
         ),
         //SQL CHECK POINTS 00
         ChangeNotifierProvider(
-          create: (context) => DBCheckPointsAppProviderAr00(),
+          create: (context) => DBChPProvider00(),
           lazy: false,
         ),
         //CHECK POINTS 01
@@ -238,7 +233,7 @@ class AppState extends StatelessWidget {
         ),
         //SQL CHECK POINTS 01
         ChangeNotifierProvider(
-          create: (context) => DBCheckPointsAppProviderAr01(),
+          create: (context) => DBChPProvider01(),
           lazy: false,
         ),
         //CHECK POINTS 02
@@ -248,7 +243,7 @@ class AppState extends StatelessWidget {
         ),
         //SQL CHECK POINTS 02
         ChangeNotifierProvider(
-          create: (context) => DBCheckPointsAppProviderAr02(),
+          create: (context) => DBChPProvider02(),
           lazy: false,
         ),
 
@@ -259,7 +254,7 @@ class AppState extends StatelessWidget {
         ),
         //SQL CHECK POINTS 03
         ChangeNotifierProvider(
-          create: (context) => DBCheckPointsAppProviderAr03(),
+          create: (context) => DBChPProvider03(),
           lazy: false,
         ),
 
@@ -270,7 +265,7 @@ class AppState extends StatelessWidget {
         ),
         //SQL CHECK POINTS 04
         ChangeNotifierProvider(
-          create: (context) => DBCheckPointsAppProviderAr04(),
+          create: (context) => DBChPProvider04(),
           lazy: false,
         ),
 
@@ -281,7 +276,7 @@ class AppState extends StatelessWidget {
         ),
         //SQL CHECK POINTS 05
         ChangeNotifierProvider(
-          create: (context) => DBCheckPointsAppProviderAr05(),
+          create: (context) => DBChPProvider05(),
           lazy: false,
         ),
 
@@ -292,7 +287,7 @@ class AppState extends StatelessWidget {
         ),
         //SQL CHECK POINTS 06
         ChangeNotifierProvider(
-          create: (context) => DBCheckPointsAppProviderAr06(),
+          create: (context) => DBChPProvider06(),
           lazy: false,
         ),
 
@@ -303,7 +298,7 @@ class AppState extends StatelessWidget {
         ),
         //SQL CHECK POINTS 07
         ChangeNotifierProvider(
-          create: (context) => DBCheckPointsAppProviderAr07(),
+          create: (context) => DBChPProvider07(),
           lazy: false,
         ),
 
@@ -314,7 +309,7 @@ class AppState extends StatelessWidget {
         ),
         //SQL CHECK POINTS 08
         ChangeNotifierProvider(
-          create: (context) => DBCheckPointsAppProviderAr08(),
+          create: (context) => DBChPProvider08(),
           lazy: false,
         ),
 
@@ -325,7 +320,7 @@ class AppState extends StatelessWidget {
         ),
         //SQL CHECK POINTS 09
         ChangeNotifierProvider(
-          create: (context) => DBCheckPointsAppProviderAr09(),
+          create: (context) => DBChPProvider09(),
           lazy: false,
         ),
 
@@ -336,7 +331,7 @@ class AppState extends StatelessWidget {
         ),
         //SQL CHECK POINTS 010
         ChangeNotifierProvider(
-          create: (context) => DBCheckPointsAppProviderAr010(),
+          create: (context) => DBChPProvider10(),
           lazy: false,
         ),
 
@@ -347,7 +342,7 @@ class AppState extends StatelessWidget {
         ),
         //SQL CHECK POINTS 011
         ChangeNotifierProvider(
-          create: (context) => DBCheckPointsAppProviderAr011(),
+          create: (context) => DBChPProvider11(),
           lazy: false,
         ),
 
@@ -358,7 +353,7 @@ class AppState extends StatelessWidget {
         ),
         //SQL CHECK POINTS 012
         ChangeNotifierProvider(
-          create: (context) => DBCheckPointsAppProviderAr012(),
+          create: (context) => DBChPProvider12(),
           lazy: false,
         ),
 
@@ -369,7 +364,7 @@ class AppState extends StatelessWidget {
         ),
         //SQL CHECK POINTS 013
         ChangeNotifierProvider(
-          create: (context) => DBCheckPointsAppProviderAr013(),
+          create: (context) => DBChPProvider13(),
           lazy: false,
         ),
 
@@ -380,7 +375,7 @@ class AppState extends StatelessWidget {
         ),
         //SQL CHECK POINTS 0META
         ChangeNotifierProvider(
-          create: (context) => DBCheckPointsAppProviderAr0META(),
+          create: (context) => DBChPProvider14(),
           lazy: false,
         ),
 
@@ -389,16 +384,31 @@ class AppState extends StatelessWidget {
           create: (context) => TSponsorsProvider(),
           lazy: false,
         ),
-        
 
-        //Participantes 2024 - sheety 
+        //Participantes 2024 - sheety
         ChangeNotifierProvider(
-          create: (context) => ParticipantesDataProvider(),
+          create: (context) => ParticipantesProviderSheety(),
           lazy: false,
         ),
-        //Participantes 2024 - Poketbase 
+        //Participantes 2024 - Poketbase
         ChangeNotifierProvider(
           create: (context) => TParticipantesProvider(),
+          lazy: false,
+        ),
+
+        ///DBParticiapntesAppProvider
+        ChangeNotifierProvider(
+          create: (context) => DBParticiapntesAppProvider(),
+          lazy: false,
+        ),
+        //VTabla Participantes
+        ChangeNotifierProvider(
+          create: (context) => VTablaParticipantesProvider(),
+          lazy: false,
+        ),
+        // EventIdProvider
+        ChangeNotifierProvider(
+          create: (context) => EventIdProvider(),
           lazy: false,
         ),
       ],
@@ -460,15 +470,9 @@ class MyApp extends StatelessWidget {
             borderSide: BorderSide(color: AppColors.textSecondary),
           ),
         ),
-        /*
-      VisualDensity.adaptivePlatformDensity ayuda a que los botones, textos y 
-      otros elementos en la aplicación se vean bien y sean fáciles de usar en cualquier 
-      dispositivo, ajustando la apariencia para que se adapte y 
-      se vea bien sin importar el tamaño de la pantalla o la densidad de píxeles. */
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: const SplashScreen(),
     );
   }
 }
-

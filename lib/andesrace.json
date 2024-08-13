@@ -1,0 +1,18 @@
+{
+    "version": 1,
+    "test_credentials": {
+      "username": "testuser",
+      "password": "testpassword"
+    },
+    "test_script": {
+      "steps": [
+        {"action": "open_app", "description": "Abrir la aplicación"},
+        {"action": "click", "description": "Click en 'Iniciar sesión'"},
+        {"action": "input_text", "description": "Ingresar usuario", "text": "testuser"},
+        {"action": "input_text", "description": "Ingresar contraseña", "text": "testpassword"},
+        {"action": "click", "description": "Hacer clic en 'Entrar'"},
+        {"action": "navigate", "description": "Ir a la pantalla de inicio"}
+      ]
+    }
+  }
+  

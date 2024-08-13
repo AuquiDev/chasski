@@ -1,4 +1,4 @@
-package com.example.chasski
+package com.andesrace.app
 
 import io.flutter.embedding.android.FlutterActivity
 
